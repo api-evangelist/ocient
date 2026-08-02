@@ -1,0 +1,103 @@
+generated: '2026-08-02'
+method: searched
+source: https://ocient.com/security-and-compliance/
+derived_from: openapi/ocient-http-query-api-openapi-original.json
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: 'Published spec declares openapi: 3.1.0 with 16 paths and 17 operations;
+    each Ocient SQL Node also serves /openapi.yaml and /openapi.json.'
+- id: oidc
+  conforms: true
+  evidence: 'Documented OpenID Connect single sign-on against any OIDC identity
+    provider, with authorization-code callback, token exchange, device grant, device
+    grant verification, and token refresh operations in the spec.'
+- id: oauth2-device-grant
+  conforms: true
+  evidence: sso_device_grant and sso_device_grant_verify operations implement an
+    OpenID device grant flow (RFC 8628 shape).
+- id: http-basic-auth
+  conforms: true
+  evidence: Documented Basic Auth credential option on the HTTP Query API.
+- id: jdbc-4.3
+  conforms: true
+  evidence: 'Published JDBC API compatibility table records support as of Ocient JDBC
+    4.0.0 for JDBC 4.3 requirements including sharding metadata, DriverManager.drivers,
+    and literal/identifier enquoting.'
+- id: pep-249
+  conforms: true
+  evidence: pyocient conforms to the Python Database API Specification 2.0 (PEP 249).
+- id: sqlalchemy-dialect
+  conforms: true
+  evidence: First-party sqlalchemy-ocient dialect published to PyPI.
+- id: a2a-1.0.0
+  conforms: true
+  grade: conformant
+  evidence: 'Agent Card served at docs.ocient.com/.well-known/agent-card.json;
+    capabilities is an object, protocolVersion 0.3 present, skills is an array. One
+    deviation — supportedInterfaces instead of additionalInterfaces. See
+    a2a/ocient-a2a.yml.'
+- id: mcp-2025-06-18
+  conforms: true
+  evidence: 'Anonymous MCP server at docs.ocient.com/mcp negotiated protocolVersion
+    2025-06-18 and returned 3 tools from tools/list. See mcp/ocient-mcp.yml.'
+- id: llmstxt
+  conforms: true
+  evidence: /llms.txt published at docs.ocient.com with 255 lines of documentation
+    index entries.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: No application/problem+json responses; errors are carried in-band in a
+    proprietary status object with reason and sql_state.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on both ocient.com and
+    docs.ocient.com.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header support and no published deprecation
+    policy document.
+- id: rfc8615-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog returns 404.
+- id: asyncapi
+  conforms: false
+  evidence: 'No AsyncAPI document and no webhook surface. Ocient event ingestion is
+    inbound via Kafka data pipelines rather than outbound provider-emitted events, so
+    this is not applicable rather than missing.'
+- id: dnssec
+  conforms: false
+  evidence: 'Probed ocient.com: no DNSKEY. See security/ocient-domain-security.yml.'
+compliance_program:
+  published: true
+  url: https://ocient.com/security-and-compliance/
+  certifications:
+  - id: iso-27001
+    name: ISO/IEC 27001:2022
+    status: certified
+    auditor: Linford & Company, LLP
+  - id: soc2-type2
+    name: SOC 2 Type II
+    status: certified
+    cadence: annual
+    scope: Solutions deployed in OcientCloud or managed by OcientAIQ teams
+  regulations:
+  - {id: gdpr, name: General Data Protection Regulation, posture: compliance
+      capabilities provided}
+  - {id: ccpa, name: California Consumer Privacy Act, posture: compliance
+      capabilities provided}
+  datacenter_inherited:
+    note: 'Frameworks below are attributed to the datacenters hosting OcientCloud,
+      not to Ocient as the certified entity — recorded separately to avoid
+      over-crediting.'
+    frameworks: [ISO 22301, PCI DSS, FISMA, HITRUST, DC OIX-2]
+  practices:
+  - Third-party penetration testing
+  - Comprehensive internal security program
+  - System auditing and monitoring
+  - Data encryption in transit and at rest
+  security_guide: https://docs.ocient.com/ocient-security-guide
+vulnerability_disclosure:
+  published: false
+  note: No security.txt, no bug bounty program, and no responsible-disclosure page
+    were found. Probed by 0-working/probe-security-programs.py (vdp=none).

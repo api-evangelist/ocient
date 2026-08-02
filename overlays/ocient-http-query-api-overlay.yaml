@@ -1,0 +1,86 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Ocient HTTP Query API
+  version: 1.0.0
+extends: openapi/ocient-http-query-api-openapi-original.json
+x-generated: '2026-08-02'
+x-method: generated
+x-source: https://docs.ocient.com/openapi/generated-api-methods.json
+x-note: >-
+  Captures API Evangelist enhancements over the harvested Ocient spec. The original
+  is never mutated. The two largest gaps this overlay annotates are (1) an empty
+  components.securitySchemes even though every protected operation requires an
+  Authorization header, and (2) 200-only responses with no 4xx/5xx declared.
+actions:
+- target: $.info
+  update:
+    title: Ocient HTTP Query API
+    x-apievangelist-slug: ocient
+    x-apievangelist-provider: Ocient
+    x-apievangelist-harvested: '2026-08-02'
+    x-apievangelist-source: https://docs.ocient.com/openapi/generated-api-methods.json
+    x-apievangelist-docs: https://docs.ocient.com/ocient-http-query-api
+    x-apievangelist-deployment: >-
+      Served by SQL Nodes inside a customer Ocient System (OcientCloud,
+      customer-deployed, or hybrid). There is no shared multi-tenant host; each node
+      also publishes its own /openapi.yaml and /openapi.json.
+- target: $.info
+  update:
+    x-apievangelist-gaps:
+    - components.securitySchemes is empty and `security` is `[]`, yet the
+      authorization header is a required parameter on the protected operations. The
+      spec should declare http basic, http bearer, and openIdConnect schemes and apply
+      them.
+    - Every operation declares only a 200 response. No 4xx or 5xx response objects
+      are defined, so error contracts are not machine-readable.
+    - components.schemas is empty; all request and response schemas are inline and
+      non-reusable, including the repeated `status` envelope.
+    - No operation carries `deprecated`, and no Sunset/Deprecation header is modelled.
+- target: $.components
+  update:
+    x-apievangelist-recommended-securitySchemes:
+      basicAuth: {type: http, scheme: basic}
+      bearerAuth: {type: http, scheme: bearer}
+      ocientOidc:
+        type: openIdConnect
+        x-note: >-
+          Discovery URL is per-deployment; the identity provider is configured by the
+          Ocient administrator as the database SSO integration.
+    x-apievangelist-recommended-schemas:
+      Status:
+        type: object
+        description: In-band result envelope present on nearly every Ocient response.
+        properties:
+          reason: {type: string, description: Human-readable reason for the outcome.}
+          sql_state: {type: string, description: SQLSTATE-style state string.}
+- target: $.tags
+  update:
+    x-apievangelist-tag-notes:
+      Ocient HTTP Query API: SQL execution plus password and OpenID Connect
+        authentication. 11 operations.
+      System Information REST Endpoints: Read-only operational visibility — version,
+        status, statistics, and configuration. 6 operations.
+- target: $.paths['/v1/execute/{database}'].post
+  update:
+    x-apievangelist-consequence: write
+    x-apievangelist-note: >-
+      Executes arbitrary SQL including DDL and DML, not only SELECT. The HTTP Query
+      API does not support transactions, so a failed multi-statement sequence cannot
+      be rolled back here — use JDBC, pyocient, or the Spark Connector for
+      all-or-nothing work.
+- target: $.paths['/v1/execute/{database}'].get
+  update:
+    x-apievangelist-consequence: write
+    x-apievangelist-note: >-
+      Despite being a GET, this executes a caller-supplied SQL statement and is
+      therefore not a safe method. It does not support the `params` body parameter, so
+      prefer the POST form whenever binding values.
+- target: $.paths['/v1/logout'].post
+  update:
+    x-apievangelist-note: >-
+      Clears associated cookies but does NOT invalidate access tokens. Not a
+      revocation endpoint.
+- target: $.paths['/v1/info'].get
+  update:
+    x-apievangelist-consequence: read
+    x-apievangelist-note: Unauthenticated connectivity and version check.

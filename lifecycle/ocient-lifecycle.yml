@@ -1,0 +1,70 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.ocient.com/version-compatibility
+versioning:
+  api_scheme: uri-path
+  api_current: v1
+  platform_scheme: major.minor
+  platform_current: '27.1'
+  docs: https://docs.ocient.com/version-compatibility
+  release_notes: https://docs.ocient.com/release-notes
+  note: The HTTP Query API path prefix has remained /v1; platform capability moves
+    with the Ocient System release number, and clients are pinned to a system release
+    by a published compatibility matrix.
+compatibility_matrix:
+  docs: https://docs.ocient.com/version-compatibility
+  description: Published table pairing each Ocient System version with recommended
+    JDBC driver versions and minimum Java versions.
+  entries:
+  - {system: '27.1', jdbc: 4.2.0, java: 8 or later}
+  - {system: '27.0', jdbc: 4.1.0, java: 8 or later}
+  - {system: '26.1', jdbc: 3.7.0 and 4.0.0, java: 8 or later}
+  - {system: '25.5', jdbc: 3.6.7, 3.6.6, 3.6.5, and 3.6.4, java: 8 or later}
+  - {system: '25.2', jdbc: 3.5.1, java: 8 or later}
+  - {system: '25.1', jdbc: 3.4.1, java: 8 or later}
+  - {system: '25.0', jdbc: 3.3.1, java: 8 or later}
+  - {system: 24.3 and 24.4, jdbc: 3.2.x, java: 11 or later}
+  - {system: 23.1, 24.0, 24.1, and 24.2, jdbc: 3.1.7, java: 8 or later}
+  - {system: '23.0', jdbc: '3.0', java: 8 or later}
+  jdbc_api_support: The docs also publish a JDBC API version conformance table
+    (through JDBC 4.3) recording which requirements the Ocient driver supports.
+deprecation:
+  policy_url: null
+  published_policy: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  mechanism: 'Behavioral changes are announced under a "Version Compatibility" heading
+    inside each release note rather than through a standalone deprecation policy or
+    HTTP Sunset/Deprecation headers.'
+  examples:
+  - {release: '27.1', change: The array_to_string SQL function no longer adds quotes
+      around values of VARCHAR arrays.}
+  note: 'Recorded honestly: Ocient publishes per-release breaking-change notices and
+    a driver/system compatibility matrix, but no separate deprecation policy document
+    and no RFC 8594 header support.'
+upgrade:
+  docs: https://docs.ocient.com/ocient-software-upgrade
+  description: Documented Ocient software upgrade procedure for customer-deployed and
+    managed systems.
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA or uptime target is published; service levels are set by the
+    applicable service agreement for OcientCloud and Ocient Management Services.
+status_page:
+  url: null
+  probed: ['https://status.ocient.com/ — no DNS resolution']
+  note: Ocient publishes no public status page. The platform is deployed per customer
+    (OcientCloud, customer-deployed, or hybrid) rather than as a shared multi-tenant
+    service, so no `StatusPage` pointer is emitted.
+support:
+  contact: https://ocient.com/contact-us/
+release_notes:
+  platform: https://docs.ocient.com/ocientaiq-unified-data-platform-release-notes
+  jdbc: https://docs.ocient.com/jdbc-release-notes
+  pyocient: https://docs.ocient.com/pyocient-release-notes
+  index: https://docs.ocient.com/release-notes
+deprecated_operations: []
+deprecated_operations_note: 'No operation in the published OpenAPI carries
+  `deprecated: true`.'

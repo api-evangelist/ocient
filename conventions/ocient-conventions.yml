@@ -1,0 +1,104 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.ocient.com/ocient-http-query-api
+derived_from: openapi/ocient-http-query-api-openapi-original.json
+scope: Ocient HTTP Query API and System Information REST endpoints
+authentication:
+  style: Bearer token in the Authorization header, HTTP Basic, or OpenID Connect SSO
+  header: Authorization
+  artifact: authentication/ocient-authentication.yml
+  note: The spec models auth as a required header parameter rather than a
+    securityScheme; `components.securitySchemes` is empty.
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  note: 'Ocient documents no idempotency-key mechanism on the HTTP Query API and the
+    OpenAPI declares no Idempotency-Key parameter. Safe replay is instead a property
+    of the SQL statement being executed: GET /v1/execute and read-only System
+    Information endpoints are naturally repeatable, while DDL/DML sent through
+    POST /v1/execute is not. The HTTP Query API also does not support transactions —
+    use the JDBC driver, pyocient, or the Spark Connector when you need
+    COMMIT/ROLLBACK semantics. No `type: Idempotency` pointer is emitted because the
+    provider genuinely publishes no idempotency contract.'
+transactions:
+  http_query_api: false
+  jdbc: true
+  pyocient: true
+  spark_connector: true
+  spark_note: The Spark Connector performs commit and rollback automatically.
+  docs: https://docs.ocient.com/transaction-control-language-tcl-statement-reference
+  since: Ocient System 27.1 / JDBC 4.2.0
+  controls: [SET AUTOCOMMIT, COMMIT, ROLLBACK]
+pagination:
+  style: result-set batching plus SQL clauses
+  request_params:
+  - {name: fetch_size, in: body/query, description: Number of rows fetched per batch.}
+  - {name: max_rows, in: body, description: Maximum rows returned for the statement.}
+  sql: LIMIT and OFFSET clauses in the statement itself
+  cursor: false
+  note: Negative LIMIT (-504) and negative OFFSET (-505) are distinct error codes.
+streaming:
+  supported: true
+  description: POST /v1/execute supports requests for both regular and streaming
+    responses.
+content_negotiation:
+  default_response: application/json
+  request_headers: [accept, content-type, accept-encoding, preferred-encoding,
+    preferred-compression-level]
+  format_parameter:
+    name: format
+    in: [query, body]
+    description: Controls result shape (for example `collection`).
+  schema_parameter:
+    name: schema
+    in: query
+  json_syntax_note: Keys and string values require double quotes; the payload is
+    enclosed in single quotes on the command line.
+versioning:
+  scheme: uri-path
+  current: v1
+  api_path_prefix: /v1
+  platform_versioning: Ocient System releases are numbered major.minor (27.1, 27.0,
+    26.1, 25.5 ...) and clients are pinned to them by a published compatibility table.
+  compatibility_docs: https://docs.ocient.com/version-compatibility
+  artifact: lifecycle/ocient-lifecycle.yml
+error_envelope:
+  shape: 'JSON response object containing a `status` object with `reason` and
+    `sql_state` fields.'
+  format: proprietary
+  rfc9457: false
+  code_space: Negative integer Ocient error codes grouped by range (-1xx through -12xx)
+  in_database_registry: SELECT * FROM sys.sql_messages
+  artifacts:
+  - errors/ocient-error-codes.yml
+  - errors/ocient-problem-types.yml
+request_tracing:
+  request_id_header: null
+  query_identifier: Queries carry a UUID visible in sys.queries and usable with the
+    CANCEL and KILL commands.
+  note: No documented per-request correlation-id header on the HTTP API.
+rate_limiting:
+  documented: false
+  headers: []
+  note: 'Ocient publishes no request-rate limits for the HTTP Query API. Load is
+    governed inside the database instead, through workload management, service
+    classes, and per-statement resource controls (SET PRIORITY, SET PARALLELISM,
+    SET MAXTIME, SET MAXTEMPDISK, SET MAXROWS).'
+transport:
+  tls: always enabled on the SQL service
+  default_port: 443
+  enablement: The OpenAPI port must be enabled on the connectivity pool
+    (ALTER CONNECTIVITY_POOL).
+  docs: https://docs.ocient.com/secure-connections-using-tls
+deployment_model:
+  hosted_public_api: false
+  note: 'The HTTP Query API is served by SQL Nodes inside a customer Ocient System
+    (OcientCloud, customer-deployed, or hybrid). There is no shared multi-tenant
+    api.ocient.com host, so servers[] in the spec is templated as https://{sql_node}.
+    Each node also publishes its own /openapi.yaml and /openapi.json.'
+cross_links:
+  authentication: authentication/ocient-authentication.yml
+  errors: errors/ocient-error-codes.yml
+  lifecycle: lifecycle/ocient-lifecycle.yml
+  changelog: changelog/ocient-changelog.yml
+  conformance: conformance/ocient-conformance.yml

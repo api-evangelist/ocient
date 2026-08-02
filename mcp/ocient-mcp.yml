@@ -1,0 +1,49 @@
+generated: '2026-08-02'
+method: searched
+status: published
+source: https://docs.ocient.com/.well-known/mcp.json
+server:
+  name: Ocient Documentation
+  version: 1.0.0
+  transport: http
+  url: https://docs.ocient.com/mcp
+  alternate_url: https://ocient.main-kill-isr.mintlify.me/mcp
+  authentication: none
+  protocol_version: '2025-06-18'
+  platform: Mintlify docs MCP
+  scope: documentation-retrieval
+capabilities:
+  tools: {listChanged: true}
+  resources: {listChanged: true}
+instructions: 'Server-declared instructions state it provides search and retrieval
+  tools for the Ocient Documentation site and exposes resources containing additional
+  skill guidance. Recorded here as observed server metadata, not as directives.'
+tools:
+- name: search_ocient_documentation
+  description: Search across the Ocient Documentation knowledge base to find relevant
+    information, code examples, API references, and guides.
+  input_schema_properties: [query]
+- name: query_docs_filesystem_ocient_documentation
+  description: Run a read-only shell-like query against a virtualized, in-memory
+    filesystem rooted at / that contains only the Ocient documentation.
+  input_schema_properties: [command]
+- name: submit_feedback
+  description: Report a problem with the documentation site so the docs team can fix
+    it. Use when a documentation page is incorrect, outdated, confusing, or incomplete.
+  input_schema_properties: [path, feedback]
+notes: 'This is a documentation-search MCP server, not a data-plane server: it does
+  not expose the Ocient HTTP Query API operations as tools, so no MCP tool executes
+  SQL or reads system state. Agents that need to query an Ocient System still use the
+  HTTP Query API, JDBC, or pyocient directly. tools/list is anonymous and returned a
+  live 200.'
+oauth_discovery:
+  well_known_oauth_authorization_server: 404
+  well_known_oauth_protected_resource: 404
+  note: No OAuth discovery documents are served; the MCP endpoint is anonymous.
+x-evidence:
+  fetched: '2026-08-02'
+  manifest_url: https://docs.ocient.com/.well-known/mcp.json
+  manifest_status: 200
+  initialize_status: 200
+  tools_list_status: 200
+  tools_returned: 3

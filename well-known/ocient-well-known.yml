@@ -1,0 +1,59 @@
+generated: '2026-08-02'
+method: searched
+source: live probes of ocient.com and docs.ocient.com
+hosts:
+- host: https://docs.ocient.com
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    content_type: application/json
+    file: ../a2a/ocient-agent-card.json
+    note: A2A Agent Card — see a2a/ocient-a2a.yml
+  - path: /.well-known/mcp.json
+    status: 200
+    content_type: application/json
+    file: ocient-mcp.json
+    note: MCP server manifest — see mcp/ocient-mcp.yml
+  - path: /.well-known/agent-skills/ocient/skill.md
+    status: 200
+    content_type: text/markdown
+    file: ../skills/ocient-ocient-skill.md
+    note: Provider-published Agent Skill — see skills/_index.yml
+  - path: /llms.txt
+    status: 200
+    content_type: text/plain
+    file: ../llms/ocient-llms.txt
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /openapi.json
+    status: 404
+    note: The real OpenAPI is served at /openapi/generated-api-methods.json, not at
+      the host root.
+- host: https://ocient.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+summary:
+  security_txt: false
+  api_catalog: false
+  openid_configuration: false
+  agent_card: true
+  mcp_manifest: true
+  llms_txt: true
+  agent_skill: true

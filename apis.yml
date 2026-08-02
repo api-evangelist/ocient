@@ -1,23 +1,161 @@
 aid: ocient
 name: Ocient
-description: 'Ocient is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Ocient is a Chicago-based data platform company founded in 2016 that builds
+  OcientAIQ, a unified data platform for petabyte-scale analytics and production AI.
+  Its Compute-Adjacent Storage Architecture (CASA) colocates NVMe storage with compute
+  so that ingest, query optimization, machine learning, geospatial analysis, security
+  and governance run against very large datasets without moving the data. The platform
+  is reached with standard SQL over a JDBC driver, the pyocient Python DB-API 2.0 driver,
+  a SQLAlchemy dialect, an Apache Spark connector, and an HTTP Query API that executes
+  SQL statements over REST and returns JSON. Ocient serves communications service providers,
+  national security and intelligence, adtech, and financial services customers, and
+  offers OcientCloud, customer-deployed, and hybrid deployment models.'
 url: https://raw.githubusercontent.com/api-evangelist/ocient/refs/heads/main/apis.yml
+image: https://ocient.com/wp-content/uploads/2024/03/logo_adjust-2r.png
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-02'
 modified: '2026-08-02'
+x-enrichment:
+  date: '2026-08-02'
+  status: enriched
+  artifacts_added: 20
+  pass: local-v1
 tags:
 - Company
-apis: []
+- Data
+- Analytics
+- Data Warehouse
+- Database
+- SQL
+- Artificial Intelligence
+- Machine Learning
+- Big Data
+- Geospatial
+apis:
+- aid: ocient:http-query-api
+  name: Ocient HTTP Query API
+  description: 'The Ocient HTTP Query API executes SQL statements against an Ocient
+    System over HTTPS and returns results as JSON. It runs on the SQL Nodes of an Ocient
+    deployment behind an OpenAPI-enabled connectivity pool, and exposes endpoints for
+    executing statements, retrieving system version information, password login and
+    logout, and a full OpenID Connect single sign-on flow including authorization-code
+    callback, token exchange, device grant, device grant verification, and token refresh.
+    Each Ocient SQL Node also serves its own OpenAPI definition at /openapi.yaml and
+    /openapi.json.'
+  humanURL: https://docs.ocient.com/ocient-http-query-api
+  baseURL: https://docs.ocient.com/api-playgrounds/ocient-http-query-api
+  tags:
+  - SQL
+  - Query
+  - Database
+  - Authentication
+  properties:
+  - type: OpenAPI
+    url: openapi/ocient-http-query-api-openapi-original.json
+  - type: Documentation
+    url: https://docs.ocient.com/ocient-http-query-api
+  - type: Authentication
+    url: authentication/ocient-authentication.yml
+  - type: MCPServer
+    url: mcp/ocient-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/ocient-tool-crosswalk.yml
+- aid: ocient:system-information-rest-endpoints
+  name: Ocient System Information REST Endpoints
+  description: 'Read-only REST endpoints exposed by Ocient System nodes for operational
+    visibility. They return the software version, the running status of the node, per-node
+    database statistics, the JSON configuration of an individual node, the configuration
+    of the system as a whole, and the values of named configuration parameters. These
+    endpoints are used for monitoring, health checking, and confirming configuration
+    across an Ocient cluster.'
+  humanURL: https://docs.ocient.com/api-playgrounds/system-information-rest-endpoints/get-version
+  baseURL: https://docs.ocient.com/api-playgrounds/system-information-rest-endpoints
+  tags:
+  - Monitoring
+  - Configuration
+  - Operations
+  properties:
+  - type: OpenAPI
+    url: openapi/ocient-http-query-api-openapi-original.json
+  - type: Documentation
+    url: https://docs.ocient.com/api-playgrounds/system-information-rest-endpoints/get-version
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: TrustCenter
+  url: security/ocient-trust-center.yml
+- type: DomainSecurity
+  url: security/ocient-domain-security.yml
 - type: Website
-  url: https://forgeglobal.com/ocient_stock/
+  url: https://ocient.com/
+- type: DeveloperPortal
+  url: https://docs.ocient.com/
+- type: Documentation
+  url: https://docs.ocient.com/
+- type: APIReference
+  url: https://docs.ocient.com/ocient-http-query-api
+- type: GettingStarted
+  url: https://docs.ocient.com/connect-to-ocient
+- type: Blog
+  url: https://ocient.com/blog/
+- type: BlogRSS
+  url: https://ocient.com/feed/
+- type: GitHubOrganization
+  url: https://github.com/ocient
+- type: Support
+  url: https://ocient.com/contact-us/
+- type: Pricing
+  url: https://ocient.com/pricing/
+- type: TermsOfService
+  url: https://ocient.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://ocient.com/privacy-statement/
+- type: Compliance
+  url: https://ocient.com/security-and-compliance/
+- type: SecurityGuide
+  url: https://docs.ocient.com/ocient-security-guide
+- type: OpenAPI
+  url: openapi/ocient-http-query-api-openapi-original.json
+- type: Packages
+  url: packages/ocient-packages.yml
+- type: SDKs
+  url: packages/ocient-packages.yml
+- type: CLI
+  url: cli/ocient-cli.yml
+- type: Authentication
+  url: authentication/ocient-authentication.yml
+- type: Conventions
+  url: conventions/ocient-conventions.yml
+- type: ErrorCatalog
+  url: errors/ocient-problem-types.yml
+- type: ErrorCodes
+  url: errors/ocient-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/ocient-lifecycle.yml
+- type: VersionCompatibility
+  url: https://docs.ocient.com/version-compatibility
+- type: ChangeLog
+  url: changelog/ocient-changelog.yml
+- type: Conformance
+  url: conformance/ocient-conformance.yml
+- type: DataModel
+  url: data-model/ocient-data-model.yml
+- type: Overlay
+  url: overlays/ocient-http-query-api-overlay.yaml
+- type: WellKnown
+  url: well-known/ocient-well-known.yml
+- type: LLMsTxt
+  url: llms/ocient-llms.txt
+- type: MCPServer
+  url: mcp/ocient-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/ocient-tool-crosswalk.yml
+- type: AgentCard
+  url: a2a/ocient-a2a.yml
+- type: AgentSkill
+  url: skills/_index.yml

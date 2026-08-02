@@ -1,0 +1,100 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.ocient.com/release-notes
+docs: https://docs.ocient.com/release-notes
+scheme:
+  platform: major.minor (no patch component in published notes)
+  drivers: semver
+  dated: partial
+  note: JDBC release notes carry ISO dates per version; platform release notes are
+    versioned but undated.
+streams:
+- id: platform
+  name: OcientAIQ Unified Data Platform
+  url: https://docs.ocient.com/ocientaiq-unified-data-platform-release-notes
+  current: '27.1'
+  history_depth: 'versions published back to 12.0'
+- id: jdbc
+  name: JDBC driver
+  url: https://docs.ocient.com/jdbc-release-notes
+  current: 4.2.1
+  distribution: https://mvnrepository.com/artifact/com.ocient/ocient-jdbc4
+- id: pyocient
+  name: pyocient Python driver
+  url: https://docs.ocient.com/pyocient-release-notes
+  current: 3.8.0
+  distribution: https://pypi.org/project/pyocient/
+entries:
+- version: '27.1'
+  stream: platform
+  date: null
+  breaking: true
+  highlights:
+  - Data Extract Tool gained Apache Parquet file extraction.
+  - Added CREATE TRANSACTIONAL PIPELINE with an optional START FOREGROUND clause that
+    blocks the SQL session until the pipeline completes or fails, rolling back all
+    uncommitted data on failure.
+  - JDBC bulk loading can now stage data through an S3-compatible object store by
+    setting bulkLoadMode to s3, instead of SSH or SFTP to Loader Nodes.
+  additions:
+  - Transaction support in the database and in the JDBC and pyocient drivers, grouping
+    statements into a single committed or discarded unit of work.
+  - DROP TASK SQL statement to remove orphaned or completed distributed tasks.
+  - New system catalog tables sys.pipeline_errors_historical,
+    sys.pipeline_events_historical, sys.pipeline_files_historical,
+    sys.pipeline_metrics_historical.
+  - transaction_id and transaction_prefix_len columns on sys.queries and
+    sys.completed_queries; transaction_id on sys.pipelines.
+  - Information schema views pipeline_status_historical, pipelines_historical,
+    transactional_pipeline_status.
+  breaking_changes:
+  - The array_to_string SQL function no longer adds quotes around values of VARCHAR
+    arrays.
+- version: '27.0'
+  stream: platform
+  date: null
+  breaking: false
+  highlights:
+  - Added the ALTER PIPELINE SQL statement for schema evolution, allowing the SELECT
+    clause of a data pipeline to be modified for columns, filters, and transformations
+    without recreating the pipeline.
+  additions:
+  - Ensemble machine learning models — Bagging, Boosting, and Stacking.
+- version: '26.1'
+  stream: platform
+  date: null
+  breaking: false
+  highlights:
+  - Added the line_number metadata key for loading the line number of a file in data
+    pipelines, plus new extract options for delimited and CSV formats.
+  additions:
+  - Regression version of the Decision Tree model.
+  - featureSubsetStrategy and maxCellsToFetch options on the Random Forest model.
+  - DRAIN PAGES SQL statement to manually migrate data from pages to segments.
+  - NOINDEX option for time bucket clauses in CREATE TABLE.
+  - ALTER SYSTEM SET DEFAULT STORAGESPACE, ALTER CLUSTER ADD STORAGESPACE, and
+    ALTER CLUSTER REMOVE STORAGESPACE statements.
+  - LOCATION and OPTIONS keywords on CREATE TASK.
+- version: 4.2.1
+  stream: jdbc
+  date: '2026-06-26'
+  breaking: false
+  highlights:
+  - Internal updates only.
+- version: 4.2.0
+  stream: jdbc
+  date: '2026-06-16'
+  breaking: false
+  highlights:
+  - Added transactional support — group multiple statements into a single transaction
+    by disabling autocommit and ending with COMMIT or ROLLBACK.
+- version: 4.1.0
+  stream: jdbc
+  date: '2026-04-01'
+  breaking: true
+  highlights:
+  - The CANCEL and KILL commands now take the query UUID as a quoted string.
+  additions:
+  - New connection properties bulkLoadSshHostKeyVerification,
+    bulkLoadSshKnownHostsPath, and maxRowsPerInsertBatch.
+window: 'Recent window only — the live release notes are the source of truth.'

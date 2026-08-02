@@ -1,0 +1,571 @@
+# Ocient error code registry, harvested verbatim from https://docs.ocient.com/errors-and-warnings
+generated: '2026-08-02'
+method: searched
+source: https://docs.ocient.com/errors-and-warnings
+docs: https://docs.ocient.com/errors-and-warnings
+in_database_registry: SELECT * FROM sys.sql_messages
+envelope:
+  shape: status object with reason and sql_state fields
+  format: proprietary
+  rfc9457: false
+code_scheme:
+  type: negative integer
+  grouping: ranges of 100
+  note: Error codes are negative values split into ranges by number such as -1xx, -2xx, and so on. Range
+    labels below are summarized from the codes each range actually contains; the docs publish the ranges
+    without titles.
+related_docs:
+- https://docs.ocient.com/data-pipeline-loading-errors
+- https://docs.ocient.com/manage-errors-in-data-pipelines
+- https://docs.ocient.com/error-tolerance-in-data-pipelines
+summary:
+  total_codes: 236
+  ranges: 13
+ranges:
+- range: -100 to -199
+  label: Internal client/server errors
+  count: 4
+  codes:
+  - code: -100
+    description: Unknown error occurred.
+  - code: -101
+    description: This is an internal error that indicates that a client (driver or connector) received
+      an invalid response from the server.
+  - code: -102
+    description: Internal error that indicates a corruption of the serialized result set sent from the
+      server to the client.
+  - code: -103
+    description: Internal error that indicates an unexpected condition has happened.
+- range: -200 to -299
+  label: Connection and network errors
+  count: 7
+  codes:
+  - code: -200
+    description: A client attempted a connection with a malformed connection string.
+  - code: -201
+    description: The connection to the server failed.
+  - code: -202
+    description: The handshake with the server failed.
+  - code: -203
+    description: The connection to the server was unexpectedly closed.
+  - code: -204
+    description: A network communications error has occurred.
+  - code: -205
+    description: The client tried to connect to a database with a specified name, but no database with
+      that name exists.
+  - code: -206
+    description: The target node is offline.
+- range: -300 to -399
+  label: Driver, cursor, and client API errors
+  count: 31
+  codes:
+  - code: -300
+    description: An argument to a driver method execution was invalid.
+  - code: -301
+    description: A driver method executed, but the input argument object was already closed.
+  - code: -302
+    description: The cursor was not positioned in a valid row.
+  - code: -303
+    description: An attempt was made to create a new result set, but the previous result set for the connection
+      was still open.
+  - code: -304
+    description: The user and password combination was incorrect.
+  - code: -305
+    description: A statement that was not a query was passed to executeQuery().
+  - code: -306
+    description: A statement that was a query was passed to executeUpdate().
+  - code: -307
+    description: A NULL output buffer was passed to a driver method, where a NULL buffer is not allowed.
+  - code: -308
+    description: A driver execution was made that is not implemented.
+  - code: -313
+    description: An invalid parameter marker number was specified.
+  - code: -316
+    description: No database connection exists.
+  - code: -317
+    description: Invalid data was detected for a parameter marker.
+  - code: -318
+    description: The cursor was not in the required state.
+  - code: -319
+    description: An invalid buffer length was specified.
+  - code: -320
+    description: There is currently no result set.
+  - code: -321
+    description: A NULL indicator pointer was required but not specified.
+  - code: -322
+    description: 'A connection attribute that is not supported was specified in SQLBrowseConnect. The
+      four supported attributes are: "DRIVER", "DSN", "UID", "PWD".'
+  - code: -323
+    description: An invalid descriptor record index was specified. Valid indices start at 1 and increase
+      to the size specified by executing SQLSetDescField with the SQL_DESC_COUNT field.
+  - code: -324
+    description: An invalid or inconsistent descriptor field type was specified in SQLSetDescRec.
+  - code: -325
+    description: An invalid descriptor field was specified in SQLSetDescField.
+  - code: -326
+    description: The target handle passed to SQLCopyDesc was an IRD.
+  - code: -327
+    description: An implicit descriptor handle that was not the original was the specified value in the
+      execution of SQLSetStmtAttr with the SQL_ATTR_APP_PARAM_DESC or SQL_ATTR_APP_ROW_DESC attribute.
+  - code: -328
+    description: Divide by zero.
+  - code: -329
+    description: Invalid floating point operation that resulted in NaN or Inf.
+  - code: -330
+    description: The action conflicts with the current state of the database.
+  - code: -331
+    description: The unconditional DELETE FROM statement is rewritten using the TRUNCATE statement. In
+      this case, the database does not create a plan that would appear in the results from the execution
+      of the EXPLAIN statement.
+  - code: -332
+    description: Already in use. Used mostly in DDL when a resource or option is already assigned to the
+      object.
+  - code: -333
+    description: Optional value was substituted.
+  - code: -334
+    description: This driver is unknown or the version support has been removed.
+  - code: -335
+    description: The execution of a client method was invalid.
+  - code: -336
+    description: Cannot execute the new SQL statement as the system is processing a prior statement using
+      the same connection in the background.
+- range: -400 to -499
+  label: Column, data type, and conversion errors
+  count: 8
+  codes:
+  - code: -400
+    description: One of the referenced columns does not exist.
+  - code: -401
+    description: The requested data type conversion was invalid.
+  - code: -402
+    description: Unknown data type.
+  - code: -403
+    description: A column name was ambiguous in the context where it was used.
+  - code: -404
+    description: Two incompatible data types were specified as return types in a case statement.
+  - code: -405
+    description: Join leads to a duplicate column name.
+  - code: -406
+    description: Invalid POINT conversion from NULL.
+  - code: -407
+    description: Column value is larger than internal limits.
+- range: -500 to -599
+  label: SQL syntax and statement validation errors
+  count: 40
+  codes:
+  - code: -500
+    description: Generic syntax error.
+  - code: -501
+    description: The SQL statement is not valid or not supported in the context where it was used.
+  - code: -502
+    description: A duplicate common table expression name was detected.
+  - code: -503
+    description: The number of columns does not match the SELECT statement.
+  - code: -504
+    description: A negative limit was specified.
+  - code: -505
+    description: A negative offset was specified.
+  - code: -506
+    description: An incorrect number of arguments was specified in a function.
+  - code: -507
+    description: Aggregation of a constant value is invalid.
+  - code: -508
+    description: An argument to a function had an incorrect data type.
+  - code: -509
+    description: An invalid comparison was detected.
+  - code: -510
+    description: Aggregation was used in a context where it is not allowed (possibly something in a WHERE
+      clause that belongs in a HAVING clause).
+  - code: -511
+    description: A HAVING clause did not have any aggregation in it.
+  - code: -512
+    description: An ORDER BY clause referenced a column by position and that position was out of range.
+  - code: -513
+    description: An expression of type list cannot be returned in a result set.
+  - code: -514
+    description: You cannot have an expression of type list within another list.
+  - code: -515
+    description: A list expression contains incompatible types.
+  - code: -516
+    description: The function does not exist.
+  - code: -517
+    description: If the result of an expression is a time interval type, the result must be cast to an
+      integral type.
+  - code: -518
+    description: An invalid matrix literal was specified.
+  - code: -519
+    description: A matrix literal had incorrect dimensions.
+  - code: -520
+    description: An invalid query priority was specified.
+  - code: -521
+    description: A column reference in a SELECT statement is invalid due to aggregation.
+  - code: -522
+    description: Columns for the first and second SELECT statements for the UNION, EXCEPT, or INTERSECT
+      statement are not compatible.
+  - code: -523
+    description: An expression in the CASE condition is not allowed.
+  - code: -524
+    description: An expression in the JOIN condition is not allowed.
+  - code: -525
+    description: Aggregation is not allowed in the PARTITION BY or ORDER BY clauses of a windowed aggregate.
+  - code: -526
+    description: A non-constant value was found where a constant was expected in an argument of a windowed
+      aggregate.
+  - code: -527
+    description: Range-based framing does not allow the PRECEDING or FOLLOWING keywords.
+  - code: -528
+    description: ORDER BY with a column ordinal is not allowed in a windowed aggregate.
+  - code: -529
+    description: A frame specification is not allowed if no ORDER BY clause is specified in a windowed
+      aggregate.
+  - code: -530
+    description: UNBOUNDED PRECEDING is only allowed on the starting frame bound.
+  - code: -531
+    description: UNBOUNDED FOLLOWING is only allowed on the ending frame bound.
+  - code: -532
+    description: The ending frame bound cannot be less than the starting frame bound.
+  - code: -533
+    description: No frame specification is allowed for this particular windowed aggregate.
+  - code: -534
+    description: A window function requires a positive integer argument.
+  - code: -535
+    description: The specified window function requires an ORDER BY statement in the OVER() clause.
+  - code: -536
+    description: Invalid aggregation.
+  - code: -537
+    description: Invalid expression.
+  - code: -538
+    description: A CASE expression within a CASE expression is not allowed.
+  - code: -539
+    description: Window function was used in a context where it is not allowed (perhaps in a predicate
+      of a WHERE or HAVING clause).
+- range: -600 to -699
+  label: Object existence and catalog errors (databases, tables, views, indexes)
+  count: 32
+  codes:
+  - code: -600
+    description: A referenced table does not exist.
+  - code: -601
+    description: The specified database already exists.
+  - code: -602
+    description: The specified table already exists.
+  - code: -603
+    description: The specified view already exists.
+  - code: -604
+    description: The specified view was not found.
+  - code: -605
+    description: The specified database was not found.
+  - code: -606
+    description: The specified storage space was not found.
+  - code: -607
+    description: The specified storage space already exists.
+  - code: -608
+    description: The specified user does not exist.
+  - code: -609
+    description: The specified user already exists.
+  - code: -610
+    description: The specified password for the new user is invalid.
+  - code: -611
+    description: The specified group name already exists.
+  - code: -612
+    description: The specified group does not exist.
+  - code: -613
+    description: The specified connection already exists.
+  - code: -614
+    description: The specified connection was not found.
+  - code: -615
+    description: The referenced translation does not exist.
+  - code: -616
+    description: A translation with that name exists.
+  - code: -617
+    description: The specified user was not found in this group.
+  - code: -618
+    description: The provided storage space has no storage cluster assigned.
+  - code: -619
+    description: The referenced table is a system table and not allowed for the export operation.
+  - code: -620
+    description: The referenced pipeline does not exist.
+  - code: -621
+    description: A pipeline with that name exists.
+  - code: -622
+    description: The pipeline is invalid.
+  - code: -623
+    description: The pipeline is unable to be correctly compiled.
+  - code: -624
+    description: The referenced task does not exist.
+  - code: -625
+    description: An index with that type and on that column already exists.
+  - code: -626
+    description: An index with that name already exists.
+  - code: -627
+    description: The referenced table ID no longer exists.
+  - code: -628
+    description: A connectivity pool with that name already exists.
+  - code: -629
+    description: Cannot find a connectivity pool with the specified name.
+  - code: -630
+    description: Cannot drop the last connectivity pool from a node.
+  - code: -638
+    description: Could not find a SCHEMA with that name (Schema does not exist).
+- range: -700 to -799
+  label: Authorization errors on database objects
+  count: 29
+  codes:
+  - code: -700
+    description: The user does not have read authorization on a referenced table.
+  - code: -701
+    description: The user does not have authorization to create a database.
+  - code: -702
+    description: The user does not have modify authorization on a referenced table.
+  - code: -703
+    description: The user does not have authorization to create a view.
+  - code: -704
+    description: The user does not have modify authorization on a referenced database.
+  - code: -705
+    description: The user does not have modify authorization on a referenced view.
+  - code: -706
+    description: The user does not have authorization to drop a referenced table.
+  - code: -707
+    description: The user does not have authorization to drop a referenced row.
+  - code: -708
+    description: The user does not have authorization to drop a referenced view.
+  - code: -709
+    description: The user does not have authorization to drop a referenced database.
+  - code: -710
+    description: The user does not have authorization to create a table.
+  - code: -711
+    description: The user does not have authorization to create a storage space.
+  - code: -712
+    description: The user does not have authorization to drop a referenced storage space.
+  - code: -713
+    description: The user does not have authorization to create a user.
+  - code: -714
+    description: The user does not have authorization to drop a user.
+  - code: -715
+    description: The user does not have the authority to create a group.
+  - code: -716
+    description: The user does not have the authority to drop the group.
+  - code: -717
+    description: The user does not have the authority to create a connection.
+  - code: -718
+    description: The user does not have the authority to drop the connection.
+  - code: -719
+    description: The user is not authorized to take this action.
+  - code: -720
+    description: The user does not have the authority to modify the group.
+  - code: -721
+    description: The user does not have the authority to execute a plan.
+  - code: -722
+    description: The user does not have the authority to execute an inline plan.
+  - code: -723
+    description: The user does not have the authority to create a connectivity pool.
+  - code: -724
+    description: The user does not have the authority to drop the connectivity pool.
+  - code: -725
+    description: The user does not have the authority to modify the connectivity pool.
+  - code: -726
+    description: Unable to drop some objects in the request.
+  - code: -728
+    description: The user does not have the authority to drop the SCHEMA (Objects exist in the schema).
+  - code: -733
+    description: Session has expired. Refresh is necessary.
+- range: -800 to -899
+  label: Machine learning (MLMODEL) errors
+  count: 8
+  codes:
+  - code: -800
+    description: An MLMODEL with that name was not found.
+  - code: -801
+    description: An MLMODEL with that name already exists.
+  - code: -802
+    description: The user does not have the authority to create an MLMODEL.
+  - code: -803
+    description: The user does not have the authority to drop the MLMODEL.
+  - code: -804
+    description: Unable to create an MLMODEL due to a singular matrix.
+  - code: -805
+    description: Unable to create an MLMODEL because the training set is empty.
+  - code: -806
+    description: Unable to perform LUP decomposition on this singular matrix.
+  - code: -807
+    description: The user does not have the authority to modify the MLMODEL.
+- range: -900 to -999
+  label: Execution, I/O, and query planning errors
+  count: 12
+  codes:
+  - code: -900
+    description: Operation was canceled or aborted.
+  - code: -901
+    description: I/O error.
+  - code: -902
+    description: Scalar Subquery Cardinality Violation.
+  - code: -903
+    description: Numeric value out of range.
+  - code: -904
+    description: Plan compilation error.
+  - code: -905
+    description: TKT limit reached.
+  - code: -906
+    description: Out of memory.
+  - code: -907
+    description: Segment not available.
+  - code: -908
+    description: System is still initializing.
+  - code: -909
+    description: Out of temporary disk space.
+  - code: -910
+    description: Operation was automatically killed due to drop in the client connection.
+  - code: -911
+    description: Failed to acquire OSN (Ownership Sequence Number). Data for querying is no longer available
+      to the storage cluster.
+- range: -1000 to -1099
+  label: Privilege, role, and grant errors
+  count: 9
+  codes:
+  - code: -1000
+    description: The privilege target already has the privilege.
+  - code: -1001
+    description: The user does not have the authority to grant this privilege.
+  - code: -1002
+    description: The privilege target does not have that privilege.
+  - code: -1003
+    description: The referenced role does not exist.
+  - code: -1004
+    description: The provided object ID was not found.
+  - code: -1005
+    description: Create task failure.
+  - code: -1006
+    description: Task already in progress.
+  - code: -1007
+    description: Could not find the supplied service class.
+  - code: -1008
+    description: Supplied service class definition is invalid.
+- range: -1100 to -1199
+  label: Service class, node, segment, and cluster errors
+  count: 17
+  codes:
+  - code: -1100
+    description: No available service classes for the user have available query slots.
+  - code: -1101
+    description: The specified node is not found.
+  - code: -1102
+    description: Segment not found.
+  - code: -1111
+    description: Cluster not found.
+  - code: -1112
+    description: A cluster with that name exists.
+  - code: -1120
+    description: Query exceeded service class time limit.
+  - code: -1121
+    description: Query exceeded session time limit.
+  - code: -1122
+    description: Query exceeded query time limit.
+  - code: -1123
+    description: Query exceeded service class row limit.
+  - code: -1124
+    description: Query exceeded session row limit.
+  - code: -1125
+    description: Query exceeded query row limit.
+  - code: -1126
+    description: Query exceeded service class temporary disk limit.
+  - code: -1127
+    description: Query exceeded session temporary disk limit.
+  - code: -1128
+    description: Query exceeded query temporary disk limit.
+  - code: -1129
+    description: Too many columns in result set for the service class.
+  - code: -1130
+    description: Too many columns in result set for the session.
+  - code: -1131
+    description: Too many columns in result set for the query.
+- range: -1200 to -1299
+  label: Security integration, single sign-on, session, and pipeline errors
+  count: 38
+  codes:
+  - code: -1200
+    description: The security integration is disabled.
+  - code: -1201
+    description: The security integration does not exist.
+  - code: -1202
+    description: The request failed due to a network communications error.
+  - code: -1203
+    description: The Single Sign On request identifier could not be found.
+  - code: -1204
+    description: No session associated with the connection exists.
+  - code: -1205
+    description: The supplied security token is invalid.
+  - code: -1206
+    description: The supplied security token signature does not match the expected value.
+  - code: -1207
+    description: The supplied security token has a signature fingerprint from an unknown entity.
+  - code: -1208
+    description: The supplied security token has expired.
+  - code: -1220
+    description: A network communications error occurred.
+  - code: -1221
+    description: The OpenID provider rejected the request that indicates an internal server error.
+  - code: -1222
+    description: The OpenID provider returned an invalid response that indicates an error with the provider.
+  - code: -1223
+    description: The request_uri in the Authorization Request returns an error or contains invalid data.
+  - code: -1224
+    description: The OpenID provider does not support use of the request parameter.
+  - code: -1225
+    description: The OpenID provider does not support use of the request_uri parameter.
+  - code: -1226
+    description: The OpenID provider discovery document is invalid.
+  - code: -1227
+    description: The database OpenID configuration is invalid.
+  - code: -1228
+    description: The OpenID ID or access token has expired.
+  - code: -1229
+    description: The ID or access token was signed by a key not known to the OpenID provider.
+  - code: -1230
+    description: The signing key returned by the OpenID provider is invalid.
+  - code: -1231
+    description: The token contains an invalid claim.
+  - code: -1232
+    description: The token was issued by an unknown OpenID provider.
+  - code: -1233
+    description: The token was issued for an alternate audience.
+  - code: -1234
+    description: The token signature is invalid, which implies the token was manipulated enroute to the
+      database.
+  - code: -1235
+    description: The specified ID token is invalid.
+  - code: -1236
+    description: The specified Access token is invalid.
+  - code: -1237
+    description: The refresh token returned from the provider is invalid.
+  - code: -1238
+    description: The authentication server has timed out while waiting for client authentication.
+  - code: -1250
+    description: The client is not authorized to request an authorization code using this method.
+  - code: -1251
+    description: The resource owner or authorization server denied the request.
+  - code: -1252
+    description: The authorization server does not support obtaining an authorization code using this
+      method.
+  - code: -1253
+    description: The requested scope is invalid, unknown, or malformed.
+  - code: -1254
+    description: The request is missing a required parameter, includes an invalid parameter value, includes
+      a parameter more than once, or is otherwise malformed.
+  - code: -1255
+    description: The authorization server encountered an unexpected condition that prevented it from fulfilling
+      the request.
+  - code: -1256
+    description: The authorization server is currently unable to handle the request due to a temporary
+      overloading or maintenance of the server.
+  - code: -1257
+    description: Cannot lock table.
+  - code: -1258
+    description: Cannot unlock table.
+  - code: -1259
+    description: Cannot delete from a join or a view with multiple tables.
+- range: -9900 to -9999
+  label: Undefined exception
+  count: 1
+  codes:
+  - code: -9999
+    description: Undefined exception.

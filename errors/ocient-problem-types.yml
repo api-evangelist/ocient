@@ -1,0 +1,46 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/ocient-http-query-api-openapi-original.json
+format: proprietary
+rfc9457: false
+spec_coverage:
+  operations_total: 17
+  operations_declaring_4xx_or_5xx: 0
+  note: 'The published OpenAPI declares only `200` responses on every operation — no
+    4xx or 5xx response objects exist to derive problem types from. Error semantics
+    are carried in-band instead: a 200 response body contains a `status` object with
+    `reason` and `sql_state`, and the SQL-layer error code registry is published
+    separately. This is a real contract gap worth raising with the provider, not an
+    absence of errors.'
+envelope:
+  location: response body
+  object: status
+  fields:
+  - {name: reason, description: Human-readable reason for the failure.}
+  - {name: sql_state, description: SQLSTATE-style state string for the failure.}
+  observed_on:
+  - getOcientHttpQueryApiInfo
+problems: []
+authoritative_catalog:
+  file: errors/ocient-error-codes.yml
+  description: 236 documented Ocient error codes across 13 ranges, harvested from the
+    docs error reference, plus the in-database registry sys.sql_messages.
+notable_codes:
+- {code: -304, meaning: The user and password combination was incorrect., http_analog: 401}
+- {code: -700, meaning: The user does not have read authorization on a referenced table., http_analog: 403}
+- {code: -205, meaning: 'A client tried to connect to a database with a specified name,
+    but no database with that name exists.', http_analog: 404}
+- {code: -600, meaning: A referenced table does not exist., http_analog: 404}
+- {code: -500, meaning: Generic syntax error., http_analog: 400}
+- {code: -336, meaning: Cannot execute the new SQL statement as the system is processing
+    a prior statement using the same connection in the background., http_analog: 409}
+- {code: -1100, meaning: No available service classes for the user have available query
+    slots., http_analog: 429}
+- {code: -206, meaning: The target node is offline., http_analog: 503}
+- {code: -100, meaning: Unknown error occurred., http_analog: 500}
+notable_codes_note: 'http_analog values are an API Evangelist mapping for agent
+  reasoning only. Ocient does not publish HTTP status mappings for these codes.'
+recommendations:
+- Declare 4xx/5xx responses on the HTTP Query API operations.
+- Consider application/problem+json (RFC 9457) with `type` URIs anchored on the
+  existing error-code registry.

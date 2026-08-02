@@ -1,0 +1,64 @@
+generated: '2026-08-02'
+method: derived
+source: mcp/ocient-mcp.yml + openapi/ocient-http-query-api-openapi-original.json
+summary: 'Ocient publishes both an MCP server and an OpenAPI, but they project
+  completely different surfaces. The MCP server is a Mintlify documentation-search
+  server bound to docs.ocient.com; the OpenAPI describes the HTTP Query API and the
+  System Information REST endpoints that run on Ocient SQL Nodes. There is no overlap:
+  every MCP tool is documentation-only, and every REST operation is data-plane or
+  auth. The crosswalk records that divergence rather than inventing bindings.'
+surfaces:
+  openapi:
+    file: openapi/ocient-http-query-api-openapi-original.json
+    published_at: https://docs.ocient.com/openapi/generated-api-methods.json
+    servers: ['https://{sql_node}', 'http://oc1-lts0:9090']
+    gated: false
+    note: The spec is public, but the servers it describes are per-deployment Ocient
+      SQL Nodes reachable only inside a customer's Ocient System.
+  mcp:
+    url: https://docs.ocient.com/mcp
+    gated: false
+    note: tools/list is anonymous and returned 200 with 3 tools.
+  graphql:
+    present: false
+crosswalk: []
+mcp_only:
+- tool: search_ocient_documentation
+  reason: Documentation full-text search over docs.ocient.com. No REST operation in
+    the Ocient OpenAPI serves documentation content.
+- tool: query_docs_filesystem_ocient_documentation
+  reason: Read-only shell-like query over a virtualized in-memory filesystem of the
+    documentation. Platform (Mintlify) capability with no Ocient REST equivalent.
+- tool: submit_feedback
+  reason: Documentation feedback submission. No public Ocient REST operation accepts
+    docs feedback.
+rest_only:
+- capability: SQL execution
+  operations: [postOcientHttpQueryApiExecute, getOcientHttpQueryApiExecute]
+  reason: No MCP tool executes SQL against an Ocient System.
+- capability: System version and connectivity check
+  operations: [getOcientHttpQueryApiInfo]
+  reason: No MCP tool reports Ocient System version information.
+- capability: Password authentication
+  operations: [postOcientHttpQueryApiLogin, postOcientHttpQueryApiLogout]
+  reason: No MCP tool performs Ocient database login.
+- capability: OpenID Connect single sign-on
+  operations: [postOcientHttpQueryApiSsoAuthentication, getOcientHttpQueryApiCallback,
+    postOcientHttpQueryApiSsoToken, postOcientHttpQueryApiSsoDeviceGrant,
+    postOcientHttpQueryApiSsoDeviceGrantVerify, postOcientHttpQueryApiTokenRefresh]
+  reason: No MCP tool participates in the SSO or token-refresh flow.
+- capability: System information and configuration
+  operations: [getSystemInformationRestEndpointsGetStatistics,
+    getSystemInformationRestEndpointsGetVersion,
+    getSystemInformationRestEndpointsGetStatus,
+    getSystemInformationRestEndpointsGetConfiguration,
+    getSystemInformationRestEndpointsGetConfigurationOfWholeSystem,
+    getSystemInformationRestEndpointsGetConfigurationParameters]
+  reason: No MCP tool reads node status, statistics, or configuration.
+coverage:
+  tools_named: 3
+  tools_bound_to_rest: 0
+  mcp_only: 3
+  rest_operations_total: 17
+  rest_operations_with_a_tool: 0
+  overlap: none

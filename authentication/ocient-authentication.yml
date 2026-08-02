@@ -1,0 +1,87 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.ocient.com/authentication-methods
+docs: https://docs.ocient.com/authentication-methods
+related_docs:
+- https://docs.ocient.com/ocient-http-query-api
+- https://docs.ocient.com/ocient-security-guide
+- https://docs.ocient.com/database-password-security-settings
+- https://docs.ocient.com/manage-users-groups-and-roles
+summary:
+  types: [http, openIdConnect]
+  http_schemes: [basic, bearer]
+  api_key_in: []
+  oauth2_flows: [deviceCode, authorizationCode, tokenExchange]
+  spec_declares_security_schemes: false
+  spec_note: 'The published OpenAPI declares an empty components.securitySchemes and
+    `security: []`. Authentication is modelled instead as a required `authorization`
+    / `Authorization` header parameter on the protected operations. The auth model
+    below is taken from the documentation, not inferred from the spec.'
+methods:
+- id: password
+  name: Password authentication
+  type: http
+  schemes: [basic, bearer]
+  description: Users created with DCL set a password used for database authentication.
+    Callers may present HTTP Basic credentials directly, or exchange them at the login
+    endpoint for a bearer token.
+  username_format: '<user_name>@<database>'
+  username_format_name: Fully Qualified User Name (FQUN)
+  username_example: alice@example_database
+  operations:
+    login: postOcientHttpQueryApiLogin
+    logout: postOcientHttpQueryApiLogout
+    refresh: postOcientHttpQueryApiTokenRefresh
+  policy_controls: https://docs.ocient.com/database-password-security-settings
+  policy_notes: Administrators can configure minimum password length and password
+    expiration policies.
+- id: sso-oidc
+  name: OpenID Connect single sign-on
+  type: openIdConnect
+  description: Administrators can add a Single Sign-On integration so users authenticate
+    against an external OpenID Connect identity provider. A database, including the
+    system database, can have 0 or 1 SSO integrations. The presence of an SSO
+    integration has no effect on users authenticating with a password.
+  identity_providers: any OIDC provider (Okta documented as example)
+  flows:
+  - id: authorizationCode
+    description: Browser redirect flow — initiate at sso_authentication, the
+      authorization server redirects to the callback path which yields the token.
+    operations: [postOcientHttpQueryApiSsoAuthentication, getOcientHttpQueryApiCallback]
+  - id: deviceCode
+    description: Device grant flow for headless clients — retrieve a device grant
+      code, have the user approve it, then verify to receive an authorization token.
+    operations: [postOcientHttpQueryApiSsoDeviceGrant, postOcientHttpQueryApiSsoDeviceGrantVerify]
+  - id: tokenExchange
+    description: Exchange an OpenID Connect identifier token or access token for an
+      Ocient access token.
+    operations: [postOcientHttpQueryApiSsoToken]
+  mfa: Ocient recommends multi-factor authentication for all accounts accessing an
+    Ocient System, and limiting local accounts to emergency SSO-recovery access.
+token_handling:
+  transport: Authorization header, Bearer scheme
+  session_cookie: The login operation also sets a session cookie.
+  refresh:
+    operation: postOcientHttpQueryApiTokenRefresh
+    guidance: Call before the current token expires to maintain uninterrupted access.
+  revocation:
+    logout_invalidates_tokens: false
+    note: Logout clears associated cookies but does not invalidate access tokens.
+authorization:
+  model: role-based access control
+  docs: https://docs.ocient.com/manage-users-groups-and-roles
+  features:
+  - Default System and Database Roles
+  - Administrator-defined access groups scoped to tables, rows, or views
+  - Object-type level privileges management
+  guidance: Ocient recommends assigning roles on least privilege, separation of duties,
+    and need-to-know.
+transport_security:
+  tls: The SQL service always has TLS functionality enabled and active.
+  docs: https://docs.ocient.com/secure-connections-using-tls
+  note: By default the database allows both encrypted and unencrypted JDBC connections
+    even when server certificates are present; enforcing TLS-only is a deployment
+    hardening step.
+driver_authentication:
+  jdbc: 'connect to jdbc:ocient://<host>:<port>/<database>;user=<fqun>;password=****;'
+  pyocient: Same FQUN and password model via the Python DB-API 2.0 driver.

@@ -1,0 +1,59 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.ocient.com/commands-supported-by-the-ocient-jdbc-cli-program
+docs: https://docs.ocient.com/commands-supported-by-the-ocient-jdbc-cli-program
+clis:
+- id: jdbc-cli
+  name: Ocient JDBC CLI
+  description: Interactive SQL shell shipped inside the Ocient JDBC driver JAR. The
+    primary hands-on interface for querying and administering an Ocient System.
+  install:
+  - method: maven
+    package: com.ocient:ocient-jdbc4
+    url: https://mvnrepository.com/artifact/com.ocient/ocient-jdbc4
+  invoke: java -classpath ocient-jdbc4-jar-with-dependencies.jar com.ocient.cli.CLI
+  connection_string: 'jdbc:ocient://node_address1:port1[,node_address2:port2[,...]]/database_name[;property=value[;...]]'
+  syntax_rules:
+  - Commands are not case-sensitive.
+  - All commands except QUIT must end with a semicolon.
+  - CTRL+C cancels any query that does not update data.
+  command_groups:
+  - group: Session and connection
+    commands: [CONNECT, QUIT, GET JDBC VERSION, GET SCHEMA, SET SCHEMA, TIMING]
+  - group: Transactions
+    commands: [SET AUTOCOMMIT, COMMIT, ROLLBACK]
+    note: Multi-statement transactions; autocommit is on by default.
+  - group: Query execution and control
+    commands: [SELECT, CANCEL, KILL, LIST ALL QUERIES, PERFORMANCE]
+    note: CANCEL and KILL take a query UUID as a quoted string (JDBC 4.1.0+).
+  - group: Catalog inspection
+    commands: [DESCRIBE TABLE, DESCRIBE VIEW, LIST TABLES, LIST VIEWS, LIST INDEXES,
+      LIST SYSTEM TABLES]
+  - group: Resource and workload controls
+    commands: [SET MAXROWS, SET MAXTIME, SET MAXTEMPDISK, SET PARALLELISM, SET PRIORITY,
+      SET SERVICECLASS, SET ADJUSTFACTOR, SET ADJUSTTIME]
+  - group: Output and export
+    commands: [EXTRACT, OUTPUT GIS KML, OUTPUT NEXT QUERY, SOURCE, REPORT LOG ON,
+      REPORT LOG OFF]
+  command_count: 34
+  related:
+  - {name: Data Extract Tool, url: 'https://docs.ocient.com/data-extract-tool'}
+- id: pyocient
+  name: pyocient module CLI
+  description: The pyocient Python module can be called as a main function, acting as
+    a CLI for the database.
+  install:
+  - method: pip
+    package: pyocient
+    url: https://pypi.org/project/pyocient/
+  invoke: python -m pyocient
+  docs: https://docs.ocient.com/ocient-python-module-pyocient
+- id: lat-client
+  name: LAT Client CLI
+  description: Command line interface for the Ocient LAT client, including install in
+    disconnected and air-gapped networks.
+  docs: https://docs.ocient.com/lat-client-command-line-interface
+  related:
+  - {name: Install LAT Client in a Disconnected Network, url: 'https://docs.ocient.com/install-lat-client-in-a-disconnected-network'}
+note: Ocient ships no standalone `ocient` binary published to a package manager; the
+  CLI surface is delivered inside the JDBC driver JAR and the pyocient module.

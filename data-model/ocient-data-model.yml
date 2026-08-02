@@ -1,0 +1,99 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/ocient-http-query-api-openapi-original.json
+docs: https://docs.ocient.com/system-catalog-reference
+spec_note: 'The published OpenAPI defines no reusable `components.schemas` — every
+  request and response schema is inline, so there are no `$ref` links to walk. The
+  entities below are derived from the inline response object properties of each
+  operation, and the relationships from the identifier fields those objects carry.'
+entities:
+- name: Session
+  description: An authenticated connection to a database, established by password
+    login or the OIDC SSO flow.
+  fields: [access_token, username, database, expires_in, status]
+  produced_by: [postOcientHttpQueryApiLogin, postOcientHttpQueryApiTokenRefresh,
+    postOcientHttpQueryApiSsoDeviceGrantVerify]
+  terminated_by: [postOcientHttpQueryApiLogout]
+  identifier: access_token
+- name: DeviceGrant
+  description: A pending OpenID Connect device authorization awaiting user approval.
+  fields: [verification_uri_complete, verification_uri, user_code, status]
+  produced_by: [postOcientHttpQueryApiSsoDeviceGrant]
+  verified_by: [postOcientHttpQueryApiSsoDeviceGrantVerify]
+  identifier: user_code
+- name: IdpToken
+  description: An OpenID Connect identifier or access token from the external
+    identity provider, exchanged for an Ocient access token.
+  fields: [id_token, database]
+  produced_by: [postOcientHttpQueryApiSsoToken]
+- name: Query
+  description: An executed SQL statement and its result set.
+  fields: [query_id, status, data]
+  produced_by: [postOcientHttpQueryApiExecute, getOcientHttpQueryApiExecute]
+  identifier: query_id
+  identifier_format: UUID
+  note: The same identifier appears as the query UUID in sys.queries and is the
+    argument to the CANCEL and KILL CLI commands.
+- name: Status
+  description: The in-band result/error envelope embedded in nearly every response.
+  fields: [reason, sql_state]
+  embedded_in: [Session, DeviceGrant, Query, SystemInfo, Node]
+  artifact: errors/ocient-error-codes.yml
+- name: Database
+  description: A named database within an Ocient System. Scopes users, sessions, and
+    statement execution.
+  identifier: database
+  identifier_format: name
+  note: Also the second half of the fully qualified user name (`<user>@<database>`).
+- name: SystemInfo
+  description: Version and connectivity information for the HTTP Query API server.
+  fields: [default_database, openapi_version, status]
+  produced_by: [getOcientHttpQueryApiInfo]
+- name: SoftwareVersion
+  description: Build identity of the running Ocient software.
+  fields: [version, timestamp, git_commit, build_user, build_type, build_flags]
+  produced_by: [getSystemInformationRestEndpointsGetVersion]
+- name: Node
+  description: A single node in an Ocient System, with its roles, hardware, and
+    endpoints.
+  fields: [system_name, node_name, node_uuid, hostname, roles, failed_roles,
+    endpoints, totalram, processors, hugepages, storage_devices, connections]
+  produced_by: [getSystemInformationRestEndpointsGetConfiguration]
+  identifier: node_uuid
+- name: System
+  description: The Ocient System as a whole — the cluster of nodes.
+  produced_by: [getSystemInformationRestEndpointsGetConfigurationOfWholeSystem]
+  identifier: system_name
+relationships:
+- {from: Session, to: Database, kind: belongs_to, via: database}
+- {from: Session, to: User, kind: belongs_to, via: username}
+- {from: Query, to: Database, kind: belongs_to, via: database}
+- {from: Query, to: Session, kind: belongs_to, via: access_token}
+- {from: Query, to: Status, kind: has_one, via: status}
+- {from: Session, to: Status, kind: has_one, via: status}
+- {from: DeviceGrant, to: Session, kind: has_one, via: 'exchanged at sso_device_grant_verify'}
+- {from: IdpToken, to: Session, kind: has_one, via: 'exchanged at sso_token'}
+- {from: System, to: Node, kind: has_many, via: node_uuid}
+- {from: Node, to: System, kind: belongs_to, via: system_name}
+- {from: Node, to: SoftwareVersion, kind: has_one, via: version}
+- {from: SystemInfo, to: Database, kind: has_one, via: default_database}
+in_database_model:
+  note: 'The richer Ocient data model lives inside the database rather than on the
+    REST surface, and is documented in the System Catalog Reference rather than in the
+    OpenAPI. It is recorded here as context, not derived from the spec.'
+  docs: https://docs.ocient.com/system-catalog-reference
+  catalog_tables:
+  - sys.queries
+  - sys.completed_queries
+  - sys.pipelines
+  - sys.pipeline_errors_historical
+  - sys.pipeline_events_historical
+  - sys.pipeline_files_historical
+  - sys.pipeline_metrics_historical
+  - sys.sql_messages
+  information_schema_views:
+  - information_schema.pipeline_status_historical
+  - information_schema.pipelines_historical
+  - information_schema.transactional_pipeline_status
+  core_objects: [Database, Table, View, Index, Pipeline, Task, MLModel, User, Group,
+    Role, Cluster, Node, Segment, StorageSpace, ServiceClass]

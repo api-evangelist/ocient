@@ -1,0 +1,80 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.ocient.com/connection-driver-reference
+docs: https://docs.ocient.com/connection-driver-reference
+packages:
+- language: python
+  registry: pypi
+  name: pyocient
+  version: 3.8.0
+  url: https://pypi.org/project/pyocient/
+  install: pip install pyocient
+  license: Apache-2.0
+  official: true
+  publisher: Ocient Inc
+  description: OcientAIQ Unified Data Platform DBAPI driver conforming to the Python
+    Database API Specification 2.0 (PEP 249). Also runs as a main module, acting as a
+    CLI for the database.
+  docs: https://docs.ocient.com/ocient-python-module-pyocient
+  release_notes: https://docs.ocient.com/pyocient-release-notes
+- language: python
+  registry: pypi
+  name: sqlalchemy-ocient
+  version: 3.0.0
+  url: https://pypi.org/project/sqlalchemy-ocient/
+  install: pip install sqlalchemy-ocient
+  license: Apache-2.0
+  official: true
+  publisher: Ocient Inc
+  description: SQLAlchemy dialect for Ocient, giving application developers the full
+    power and flexibility of SQLAlchemy against the Ocient database.
+  docs: https://docs.ocient.com/sqlalchemy-integration
+- language: java
+  registry: maven-central
+  name: com.ocient:ocient-jdbc4
+  group_id: com.ocient
+  artifact_id: ocient-jdbc4
+  version: 3.5.1
+  url: https://mvnrepository.com/artifact/com.ocient/ocient-jdbc4
+  install: "<dependency><groupId>com.ocient</groupId><artifactId>ocient-jdbc4</artifactId></dependency>"
+  official: true
+  publisher: Ocient Inc
+  description: Ocient JDBC 4 driver. The primary connection driver for Ocient, used
+    directly from Java and by third-party BI, visualization and data-exploration tools.
+    Ships with the Ocient JDBC CLI program.
+  docs: https://docs.ocient.com/jdbc-manual
+  release_notes: https://docs.ocient.com/jdbc-release-notes
+  note: 'Maven Central indexes com.ocient:ocient-jdbc4 at 3.5.1; the docs Version
+    Compatibility table lists newer driver builds (4.2.x for Ocient 27.1), distributed
+    via the Ocient Maven repository.'
+components:
+- name: JDBC Spark Connector
+  language: java
+  official: true
+  docs: https://docs.ocient.com/jdbc-spark-connector
+  description: Apache Spark DataSourceV2 implementation for reading from and writing
+    to Ocient. Distributed with the Ocient JDBC driver rather than as a separate
+    registry package.
+- name: OCGraph Java Library
+  language: java
+  official: true
+  docs: https://docs.ocient.com/ocgraph-java-library
+  description: Ocient graph analytics library for Java.
+- name: OCGraph Python Library
+  language: python
+  official: true
+  docs: https://docs.ocient.com/ocgraph-python-library
+  description: Ocient graph analytics library for Python. Not published to PyPI under
+    the name `ocgraph` — the PyPI project of that name is an unrelated third-party
+    disassembly tool and is deliberately NOT listed here.
+registries_probed:
+- {registry: pypi, result: 'pyocient, sqlalchemy-ocient (both first-party)'}
+- {registry: maven-central, result: com.ocient:ocient-jdbc4}
+- {registry: npm, result: none}
+- {registry: nuget, result: none}
+- {registry: rubygems, result: none}
+- {registry: crates.io, result: none}
+- {registry: packagist, result: none}
+summary:
+  official_count: 3
+  languages: [python, java]

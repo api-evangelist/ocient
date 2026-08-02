@@ -1,0 +1,57 @@
+generated: '2026-08-02'
+method: probed
+source: https://docs.ocient.com/.well-known/agent-card.json
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: docs.ocient.com
+conformance:
+  spec: A2A 1.0.0
+  grade: conformant
+  protocol_version: '0.3'
+  preferred_transport: HTTP+JSON
+  hard_checks:
+    capabilities_is_object: true
+    protocol_version_present: true
+    skills_is_array: true
+  deviations:
+  - supportedInterfaces-instead-of-additionalInterfaces
+  notes: 'All three hard A2A 1.0.0 checks pass and every optional field
+    (preferredTransport, defaultInputModes, defaultOutputModes) is present. The card
+    declares interfaces under the non-canonical key `supportedInterfaces` rather than
+    `additionalInterfaces`, recorded as a deviation. The card is published by the
+    Mintlify-hosted documentation site rather than by an Ocient API host, and the
+    single skill points at a documentation-retrieval skill file rather than an
+    executable A2A endpoint.'
+card:
+  name: Ocient Documentation
+  url: https://docs.ocient.com/
+  version: 1.0.0
+  description: Documentation for setup, integration, administration, querying, loading,
+    and reference material for the OcientAIQ Unified Data Platform.
+  provider: Ocient Documentation
+  documentation_url: https://docs.ocient.com/
+  capabilities:
+    streaming: false
+    pushNotifications: false
+  default_input_modes:
+  - text/plain
+  default_output_modes:
+  - text/plain
+  skills: 1
+  skill_ids:
+  - ocient
+  file: ocient-agent-card.json
+related:
+  agent_skill: https://docs.ocient.com/.well-known/agent-skills/ocient/skill.md
+  mcp_manifest: https://docs.ocient.com/.well-known/mcp.json
+x-evidence:
+  fetched: '2026-08-02'
+  url: https://docs.ocient.com/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json
+  bytes: 1136
+  hosts_probed:
+  - {host: docs.ocient.com, path: /.well-known/agent-card.json, status: 200}
+  - {host: ocient.com, path: /.well-known/agent-card.json, status: 404}
+  - {host: ocient.com, path: /.well-known/agent.json, status: 404}

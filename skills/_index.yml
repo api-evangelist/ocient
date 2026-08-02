@@ -1,0 +1,68 @@
+generated: '2026-08-02'
+method: searched
+source: https://docs.ocient.com/.well-known/agent-skills/ocient/skill.md
+skills:
+- file: ocient-ocient-skill.md
+  name: Ocient
+  description: Use when building data pipelines, querying petabyte-scale datasets,
+    managing database administration, configuring system infrastructure, or integrating
+    with third-party analytics tools. Agents should reach for this skill when working
+    with data ingestion, SQL queries, performance tuning, user management, or system
+    monitoring.
+  method: searched
+  source: https://docs.ocient.com/.well-known/agent-skills/ocient/skill.md
+  publisher: Ocient
+  official: true
+  verbatim: true
+  api: openapi/ocient-http-query-api-openapi-original.json
+  referenced_by: a2a/ocient-agent-card.json
+  covers:
+  - Connection methods (JDBC CLI, pyocient, HTTP Query API, Spark Connector)
+  - Data pipeline modes (BATCH, CONTINUOUS, TRANSACTIONAL, KAFKA)
+  - Key SQL statements (CREATE PIPELINE, START/STOP/PREVIEW PIPELINE, CREATE TABLE,
+    CREATE MLMODEL, ALTER CONNECTIVITY_POOL)
+  - System node roles, performance tuning, administration, integrations,
+    troubleshooting
+- file: ocient-execute-sql-over-http.md
+  name: Execute SQL over the Ocient HTTP Query API
+  description: Authenticate against an Ocient System and run SQL statements over the
+    HTTP Query API, handling tokens, result formats, and errors.
+  method: generated
+  source: openapi/ocient-http-query-api-openapi-original.json
+  api: openapi/ocient-http-query-api-openapi-original.json
+  operations:
+  - postOcientHttpQueryApiLogin
+  - postOcientHttpQueryApiExecute
+  - getOcientHttpQueryApiExecute
+  - postOcientHttpQueryApiTokenRefresh
+  - postOcientHttpQueryApiLogout
+  - getOcientHttpQueryApiInfo
+- file: ocient-sso-device-grant.md
+  name: Authenticate to Ocient with OpenID Connect SSO
+  description: Obtain an Ocient access token through the OpenID Connect single sign-on
+    flow, including the browser redirect flow and the device grant flow for headless
+    agents.
+  method: generated
+  source: openapi/ocient-http-query-api-openapi-original.json
+  api: openapi/ocient-http-query-api-openapi-original.json
+  operations:
+  - postOcientHttpQueryApiSsoAuthentication
+  - getOcientHttpQueryApiCallback
+  - postOcientHttpQueryApiSsoToken
+  - postOcientHttpQueryApiSsoDeviceGrant
+  - postOcientHttpQueryApiSsoDeviceGrantVerify
+  - postOcientHttpQueryApiTokenRefresh
+- file: ocient-inspect-system-health.md
+  name: Inspect Ocient System health and configuration
+  description: Read the version, status, statistics, and configuration of an Ocient
+    System through the read-only System Information REST endpoints.
+  method: generated
+  source: openapi/ocient-http-query-api-openapi-original.json
+  api: openapi/ocient-http-query-api-openapi-original.json
+  operations:
+  - getSystemInformationRestEndpointsGetVersion
+  - getSystemInformationRestEndpointsGetStatus
+  - getSystemInformationRestEndpointsGetStatistics
+  - getSystemInformationRestEndpointsGetConfiguration
+  - getSystemInformationRestEndpointsGetConfigurationOfWholeSystem
+  - getSystemInformationRestEndpointsGetConfigurationParameters
