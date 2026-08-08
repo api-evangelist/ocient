@@ -1,0 +1,21 @@
+{
+  "repo": "ocient",
+  "feeds": [
+    {
+      "source": "https://docs.ocient.com/connect-to-ocient",
+      "feed_url": "https://docs.ocient.com/connect-to-ocient",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://ocient.com/blog/",
+      "feed_url": "https://ocient.com/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-06T14:08:46Z"
+}
