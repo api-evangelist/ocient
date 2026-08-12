@@ -34,51 +34,42 @@ tags:
 - Big Data
 - Geospatial
 apis:
-- aid: ocient:http-query-api
-  name: Ocient HTTP Query API
-  description: 'The Ocient HTTP Query API executes SQL statements against an Ocient
-    System over HTTPS and returns results as JSON. It runs on the SQL Nodes of an Ocient
-    deployment behind an OpenAPI-enabled connectivity pool, and exposes endpoints for
-    executing statements, retrieving system version information, password login and
-    logout, and a full OpenID Connect single sign-on flow including authorization-code
-    callback, token exchange, device grant, device grant verification, and token refresh.
-    Each Ocient SQL Node also serves its own OpenAPI definition at /openapi.yaml and
-    /openapi.json.'
+- aid: ocient:ocient-ocient-http-query-api-api
+  name: Ocient Ocient HTTP Query API API
+  description: The Ocient HTTP Query API API from Ocient — 10 operation(s) for ocient http query api.
   humanURL: https://docs.ocient.com/ocient-http-query-api
   baseURL: https://docs.ocient.com/api-playgrounds/ocient-http-query-api
   tags:
-  - SQL
-  - Query
-  - Database
-  - Authentication
+  - Ocient HTTP Query API
   properties:
   - type: OpenAPI
-    url: openapi/ocient-http-query-api-openapi-original.json
+    url: openapi/ocient-ocient-http-query-api-api-openapi.yml
   - type: Documentation
     url: https://docs.ocient.com/ocient-http-query-api
   - type: Authentication
     url: authentication/ocient-authentication.yml
-  - type: MCPServer
-    url: mcp/ocient-mcp.yml
   - type: ToolCrosswalk
     url: mcp/ocient-tool-crosswalk.yml
-- aid: ocient:system-information-rest-endpoints
-  name: Ocient System Information REST Endpoints
-  description: 'Read-only REST endpoints exposed by Ocient System nodes for operational
-    visibility. They return the software version, the running status of the node, per-node
-    database statistics, the JSON configuration of an individual node, the configuration
-    of the system as a whole, and the values of named configuration parameters. These
-    endpoints are used for monitoring, health checking, and confirming configuration
-    across an Ocient cluster.'
-  humanURL: https://docs.ocient.com/api-playgrounds/system-information-rest-endpoints/get-version
-  baseURL: https://docs.ocient.com/api-playgrounds/system-information-rest-endpoints
+  - type: Documentation
+    url: https://docs.ocient.com/api-playgrounds/system-information-rest-endpoints/get-version
+- aid: ocient:ocient-system-information-rest-endpoints-api
+  name: Ocient System Information REST Endpoints API
+  description: >-
+    The System Information REST Endpoints API from Ocient — 6 operation(s) for system information rest
+    endpoints.
+  humanURL: https://docs.ocient.com/ocient-http-query-api
+  baseURL: https://docs.ocient.com/api-playgrounds/ocient-http-query-api
   tags:
-  - Monitoring
-  - Configuration
-  - Operations
+  - System Information REST Endpoints
   properties:
   - type: OpenAPI
-    url: openapi/ocient-http-query-api-openapi-original.json
+    url: openapi/ocient-system-information-rest-endpoints-api-openapi.yml
+  - type: Documentation
+    url: https://docs.ocient.com/ocient-http-query-api
+  - type: Authentication
+    url: authentication/ocient-authentication.yml
+  - type: ToolCrosswalk
+    url: mcp/ocient-tool-crosswalk.yml
   - type: Documentation
     url: https://docs.ocient.com/api-playgrounds/system-information-rest-endpoints/get-version
 maintainers:
@@ -120,7 +111,7 @@ common:
 - type: SecurityGuide
   url: https://docs.ocient.com/ocient-security-guide
 - type: OpenAPI
-  url: openapi/ocient-http-query-api-openapi-original.json
+  url: openapi/_original/ocient-http-query-api-openapi-original.json
 - type: Packages
   url: packages/ocient-packages.yml
 - type: SDKs
