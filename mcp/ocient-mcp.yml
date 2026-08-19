@@ -13,29 +13,34 @@ server:
   platform: Mintlify docs MCP
   scope: documentation-retrieval
 capabilities:
-  tools: {listChanged: true}
-  resources: {listChanged: true}
-instructions: 'Server-declared instructions state it provides search and retrieval
-  tools for the Ocient Documentation site and exposes resources containing additional
-  skill guidance. Recorded here as observed server metadata, not as directives.'
+  tools:
+    listChanged: true
+  resources:
+    listChanged: true
+instructions: Server-declared instructions state it provides search and retrieval tools for the Ocient
+  Documentation site and exposes resources containing additional skill guidance. Recorded here as observed
+  server metadata, not as directives.
 tools:
 - name: search_ocient_documentation
-  description: Search across the Ocient Documentation knowledge base to find relevant
-    information, code examples, API references, and guides.
-  input_schema_properties: [query]
+  description: Search across the Ocient Documentation knowledge base to find relevant information, code
+    examples, API references, and guides.
+  input_schema_properties:
+  - query
 - name: query_docs_filesystem_ocient_documentation
-  description: Run a read-only shell-like query against a virtualized, in-memory
-    filesystem rooted at / that contains only the Ocient documentation.
-  input_schema_properties: [command]
+  description: Run a read-only shell-like query against a virtualized, in-memory filesystem rooted at
+    / that contains only the Ocient documentation.
+  input_schema_properties:
+  - command
 - name: submit_feedback
-  description: Report a problem with the documentation site so the docs team can fix
-    it. Use when a documentation page is incorrect, outdated, confusing, or incomplete.
-  input_schema_properties: [path, feedback]
-notes: 'This is a documentation-search MCP server, not a data-plane server: it does
-  not expose the Ocient HTTP Query API operations as tools, so no MCP tool executes
-  SQL or reads system state. Agents that need to query an Ocient System still use the
-  HTTP Query API, JDBC, or pyocient directly. tools/list is anonymous and returned a
-  live 200.'
+  description: Report a problem with the documentation site so the docs team can fix it. Use when a documentation
+    page is incorrect, outdated, confusing, or incomplete.
+  input_schema_properties:
+  - path
+  - feedback
+notes: 'This is a documentation-search MCP server, not a data-plane server: it does not expose the Ocient
+  HTTP Query API operations as tools, so no MCP tool executes SQL or reads system state. Agents that need
+  to query an Ocient System still use the HTTP Query API, JDBC, or pyocient directly. tools/list is anonymous
+  and returned a live 200.'
 oauth_discovery:
   well_known_oauth_authorization_server: 404
   well_known_oauth_protected_resource: 404
@@ -47,3 +52,11 @@ x-evidence:
   initialize_status: 200
   tools_list_status: 200
   tools_returned: 3
+deployment:
+  mode: remote
+  endpoint: https://ocient.main-kill-isr.mintlify.me/mcp
+  verified: probed
+  probe: live
+  tools: 3
+  checked: '2026-08-12'
+  source: catalog MCP census

@@ -1,0 +1,20 @@
+{
+  "provider": "ocient",
+  "sources": [
+    "ocient-ocient-http-query-api-api-openapi.yml",
+    "ocient-system-information-rest-endpoints-api-openapi.yml"
+  ],
+  "outputs": [
+    "ocient-ocient-http-query-api-api-openapi.yml",
+    "ocient-system-information-rest-endpoints-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "ocient-ocient-http-query-api-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "ocient-system-information-rest-endpoints-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}

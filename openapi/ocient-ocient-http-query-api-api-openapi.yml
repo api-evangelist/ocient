@@ -1,0 +1,892 @@
+openapi: 3.2.0
+info:
+  title: Generated API methods Ocient HTTP Query API API
+  version: 1.0.0
+  description: Generated from imported ApiMethodV2 blocks.
+servers:
+- url: https://{sql_node}
+  variables:
+    sql_node:
+      default: sql_node
+- url: http://oc1-lts0:9090
+tags:
+- name: Ocient HTTP Query API
+paths:
+  /v1/execute/{database}:
+    post:
+      summary: execute
+      description: "Executes a SQL statement and returns the results. Supports requests for both regular and streaming responses. \n\nWith streaming, results return as they become available using the HTTP chunked transfer encoding. Each chunk contains a valid JSON object that you can parse independently.\n\nFor details on streaming, including large-response configuration, see the header parameters. \n\nYou can specify the database in the request body. If you do not specify the database, the Ocient System defaults to the database specified in the authentication token or system settings. If you specify a database in the request, this value overrides any alternate database value specified as a body parameter."
+      operationId: postOcientHttpQueryApiExecute
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters:
+      - name: database
+        in: path
+        required: true
+        description: "The specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings.\n\nIf you include a database in the path, this value overrides any alternate database value specified as a body parameter."
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: false
+        description: "Sets the format for the requested data. \n\nNote: This parameter applies only when using Content-Type: text/plain. When using Content-Type: application/json, specify the format in the request body.\n\nSupported values are: \n\n\"array\" — Returns schema and data as arrays (more efficient for large data sets). (default)\n\"collection\" — Returns data as JSON objects (more convenient for client processing).\n\nExample: format=collection"
+        schema:
+          type: string
+      - name: schema
+        in: query
+        required: false
+        description: 'The schema to use for the SQL statement.
+
+
+          Example: schema=mydata
+
+
+          Note: This parameter applies only when using Content-Type: text/plain. When using Content-Type: application/json, specify the schema in the request body.'
+        schema:
+          type: string
+      - name: authorization
+        in: header
+        required: true
+        description: "An access token to connect to your Ocient System. \n\nTo receive an access token, you must provide your username and password using the login endpoint. \n\nThe system passes the credentials using the Authorization HTTP header using Base64-encoded Basic Authentication."
+        schema:
+          type: string
+      - name: content-type
+        in: header
+        required: true
+        description: "Specifies the request body format. Options include: \n\napplication/json\n\nDescription: The standard option for submitting queries and receiving responses as a single JSON object or array. Use when submitting queries with relatively small or moderate result sets or when you want the entire result set in one response.\n\napplication/stream+json\n\nDescription: Enables streaming of multiple JSON objects, allowing the API to send results as they become available. Use when querying large tables or expecting a large volume of results or when you want to process each row or result as soon as it is received, without waiting for the full response."
+        schema:
+          type: string
+      - name: accept-encoding
+        in: header
+        required: false
+        description: "Supported compression algorithms for responses. You can specify multiple algorithms as a comma-separated list. \n\nSupported values are: \n\"gzip\" \n\"deflate\" \n\"be\" (Brotli)\nor combinations like: \"gzip, be\".\n\nNote: For large result sets, compression can impact performance. Without compression, the result sets can be chunks of rows processed in a streaming fashion. With compression, the entire result set must be compressed before it is returned to the client. The client side must decompress the entire result set before processing any rows."
+        schema:
+          type: string
+      - name: accept
+        in: header
+        required: false
+        description: "Supported response media types. Regardless of the Accept header, the API returns large query results using chunked encoding. Also, see the note about compression in the accept-encoding parameter.\n\nSupported values are: \n\n\"application/json\" (default)\n\"application/stream+json\""
+        schema:
+          type: string
+      - name: preferred-encoding
+        in: header
+        required: false
+        description: "Indicates the preferred encoding type from those specified in the accept-encoding parameter. This header provides fine-grained control when the accept-encoding parameter contains multiple values, allowing the client to specify which encoding is preferred for this specific request explicitly.\n\nSupported values are: \n\n\"gzip\" \n\"br\""
+        schema:
+          type: string
+      - name: preferred-compression-level
+        in: header
+        required: false
+        description: Specifies the chosen compression level for the selected encoding algorithm. Values range from 1 (fastest, least compression) to 9 (slowest, maximum compression). The exact behavior depends on the specific compression algorithm.
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  query_id:
+                    type: string
+                  status:
+                    type: object
+                    properties:
+                      reason:
+                        type: string
+                      sql_state:
+                        type: string
+                      vendor_code:
+                        type: integer
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        c1:
+                          type: integer
+              examples:
+                response:
+                  value:
+                    query_id: ac4dd039-e385-400b-a428-fd1fdcd02e30
+                    status:
+                      reason: The operation completed successfully
+                      sql_state: '00000'
+                      vendor_code: 0
+                    data:
+                    - c1: 1
+                    - c1: 2
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                statement:
+                  type: string
+                  description: "A valid SQL statement to execute. \n\nExample: statement=SELECT * FROM customers LIMIT 10;\n\nYou can include parameters to substitute in the SQL statement by including them in the params body parameter."
+                database:
+                  type: string
+                  description: "A specific database in your system for the API call. \n\nIf you do not specify this parameter, the executed query defaults to the database from the authentication token or system settings."
+                format:
+                  type: string
+                  description: "Sets the output format of the query result data. \n\nSupported values are: \n\n\"array\" — Returns the schema and data as arrays (more efficient for large data sets). (default)\n\"collection\" — Returns data as JSON objects (more convenient for client processing)."
+                params:
+                  type: object
+                  description: "Parameters to substitute in the SQL statement for values enclosed in braces. The keys should match the parameter names in the statement (without the enclosing braces). Wrap string values in single quotes. All other data types do not use quotes. \n\nExample: If your SQL statement is SELECT * FROM orders WHERE order_date > {start_date}, then your API request should include values in the params body parameter, such as {'start_date': '2023-01-01'}."
+                fetch_size:
+                  type: integer
+                  description: "The number of rows to return in each chunk for streaming responses. This value must be 0 or greater. A value of 0 (default) means the database determines how many rows to return.  \n\nUse smaller values for interactive applications (100-1000 rows). For batch processing, use larger values (5000-10000 rows)."
+                max_rows:
+                  type: integer
+                  description: 'The maximum number of rows to return. The default value is 9223372036854776000.
+
+
+                    Note: Adding a LIMIT clause to a SQL query is generally a better method to restrict the number of rows, as the query engine still generates the total number of rows, but only returns this value to the client.'
+              required:
+              - statement
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: "curl -u 'admin@system:admin' https://my_sql_node.com/v1/execute/system \\\n    -d '{\"statement\":\"SELECT * FROM sys.dummy2\", \"format\": \"collection\"}'"
+    get:
+      summary: execute
+      description: 'Alternative GET method for executing SQL statements. This method passes parameters as URL query parameters. This method does not support the params body parameter.
+
+
+        Specify which database to access in the query parameters. If you do not specify a database, the connection defaults to the database from the authentication token or system settings.
+
+
+        This method is most suitable for simple, read-only queries where the statement can be safely included in a URL. For complex queries or those with parameters, use the POST method instead.'
+      operationId: getOcientHttpQueryApiExecute
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters:
+      - name: database
+        in: path
+        required: true
+        description: "The specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings.\n\nIf you include a database in the path, this value overrides any alternate database value specified as a body parameter."
+        schema:
+          type: string
+      - name: statement
+        in: query
+        required: true
+        description: A valid SQL statement to execute. The statement must be URL-encoded, e.g., statement=SELECT%20*%20FROM%20customers%20LIMIT%2010%3B
+        schema:
+          type: string
+      - name: database
+        in: query
+        required: false
+        description: "A specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings."
+        schema:
+          type: string
+      - name: format
+        in: query
+        required: false
+        description: "Sets the response format. \n\nSupported values are: \n\n\"array\" — Returns the schema and data as arrays (more efficient for large data sets). (default)\n\"collection\" — Returns data as JSON objects (more convenient for client processing)."
+        schema:
+          type: string
+      - name: fetch_size
+        in: query
+        required: false
+        description: "The number of rows to return in each chunk for streaming responses. This value must be 0 or greater. A value of 0 (default) means the database determines how many rows to return. \n\nUse smaller values for interactive applications (100-1000 rows). For batch processing, use larger values (5000-10000 rows)."
+        schema:
+          type: string
+      - name: Authorization
+        in: header
+        required: true
+        description: "An access token to connect to your Ocient System. \n\nTo receive an access token, you must provide your username and password using the login endpoint. \n\nThe system passes the credentials using the Authorization HTTP header using Base64-encoded Basic Authentication."
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        required: true
+        description: "Specifies the request body format. Options include: \n\napplication/json\n\nDescription: The standard option for submitting queries and receiving responses as a single JSON object or array. Use when submitting queries with relatively small or moderate result sets or when you want the entire result set in one response.\n\napplication/stream+json\n\nDescription: Enables streaming of multiple JSON objects, allowing the API to send results as they become available. Use when querying large tables or expecting a large volume of results or when you want to process each row or result as soon as it is received, without waiting for the full response."
+        schema:
+          type: string
+      - name: accept-encoding
+        in: header
+        required: false
+        description: "Supported compression algorithms for responses. You can specify multiple algorithms as a comma-separated list. \n\nSupported values are: \n'gzip' \n'deflate' \n'br' (Brotli)\nor combinations like: 'gzip, br'.\n\nNote: For large result sets, compression can impact performance. Without compression, the result sets can be chunks of rows processed in a streaming fashion. With compression, the entire result set must be compressed before it is returned to the client. The client side must decompress the entire result set before processing any rows."
+        schema:
+          type: string
+      - name: accept
+        in: header
+        required: false
+        description: "Supported response media types. Regardless of the Accept header, the API returns large query results using chunked encoding. Also, see the note about compression in the accept-encoding parameter.\n\nSupported values are: \n\n\"application/json\" (default)\n\"application/stream+json\""
+        schema:
+          type: string
+      - name: preferred-encoding
+        in: header
+        required: false
+        description: "Indicates the preferred encoding type from those specified in the accept-encoding parameter. This header provides fine-grained control when the accept-encoding parameter contains multiple values, allowing the client to specify which encoding is preferred for this specific request explicitly.\n\nSupported values are: \n\n\"gzip\" \n\"br\""
+        schema:
+          type: string
+      - name: preferred-compression-level
+        in: header
+        required: false
+        description: Specifies the chosen compression level for the selected encoding algorithm. Values typically range from 1 (fastest, least compression) to 9 (slowest, maximum compression). The exact behavior depends on the specific compression algorithm.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  query_id:
+                    type: string
+                  status:
+                    type: object
+                    properties:
+                      reason:
+                        type: string
+                      sql_state:
+                        type: string
+                      vendor_code:
+                        type: integer
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        c1:
+                          type: integer
+              examples:
+                response:
+                  value:
+                    query_id: 2d5af900-cb02-44f4-b974-6264d2133e96
+                    status:
+                      reason: The operation completed successfully
+                      sql_state: '00000'
+                      vendor_code: 0
+                    data:
+                    - c1: 1
+                    - c1: 2
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: "curl -u 'admin@system:admin' \\\n    'https://my_sql_node.com/v1/execute?statement=SELECT%20*%20FROM%20sys.dummy2&database=system&format=collection'"
+  /v1/info:
+    get:
+      summary: info
+      description: 'Returns basic system version information about the Ocient System and the HTTP Query API server.
+
+
+        You can use this endpoint to verify connectivity and to check compatible versions.'
+      operationId: getOcientHttpQueryApiInfo
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  default_database:
+                    type: string
+                  openapi_version:
+                    type: string
+                  status:
+                    type: object
+                    properties:
+                      vendor_code:
+                        type: integer
+                      sql_state:
+                        type: string
+                      reason:
+                        type: string
+              examples:
+                response:
+                  value:
+                    default_database: system
+                    openapi_version: 1.1.0
+                    status:
+                      vendor_code: 0
+                      sql_state: '00000'
+                      reason: The operation completed successfully
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: "curl -u 'admin@system:admin' \\\n    'https://my_sql_node.com/v1/info'  "
+  /v1/login:
+    post:
+      summary: login
+      description: "Authenticates a user with a username and password and then returns a token for use in subsequent API calls. This request also sets a session cookie. \n\nInclude the returned access token in the authorization header for subsequent requests in the format: \nAuthorization: Bearer {token}."
+      operationId: postOcientHttpQueryApiLogin
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  username:
+                    type: string
+                  database:
+                    type: string
+                  expires_in:
+                    type: integer
+                  status:
+                    type: object
+                    properties:
+                      reason:
+                        type: string
+                      sql_state:
+                        type: string
+                      vendor_code:
+                        type: integer
+              examples:
+                response:
+                  value:
+                    access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+                    username: jdoe
+                    database: retail_analytics
+                    expires_in: 3600
+                    status:
+                      reason: Authentication successful
+                      sql_state: '00000'
+                      vendor_code: 0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Username.
+                password:
+                  type: string
+                  description: The password for the username.
+                database:
+                  type: string
+                  description: Target database name. If you do not specify this parameter, the request defaults this value to system.
+              required:
+              - username
+              - password
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: "curl -X POST https://my_sql_node.com/v1/login \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"username\": \"admin\",\n        \"password\": \"admin\",\n        \"database\": \"system\"\n    }'\n"
+  /v1/logout:
+    post:
+      summary: logout
+      description: "Log out from a SQL session. This clears any associated cookies, but does not invalidate any access tokens.\n\nThis endpoint terminates only the cookie-based session. Any bearer tokens that were previously issued continue to work until they expire.\n         \nYou must discard any stored bearer tokens to complete the log out in a client application."
+      operationId: postOcientHttpQueryApiLogout
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      reason:
+                        type: string
+                      sql_state:
+                        type: string
+                      vendor_code:
+                        type: integer
+              examples:
+                response:
+                  value:
+                    status:
+                      reason: Logged out successfully
+                      sql_state: '00000'
+                      vendor_code: 0
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                database:
+                  type: string
+                  description: Target database name. If you do not specify this parameter, the request defaults this value to system.
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: "curl -X POST https://my_sql_node.com/v1/logout\n    -d '{\n        \"database\": \"retail_analytics\"\n    }"
+  /v1/sso_authentication:
+    post:
+      summary: sso_authentication
+      description: 'Initiates the OpenID Connect authentication process by redirecting to the authorization server.
+
+
+        This endpoint begins the standard OpenID Connect authentication process:
+
+
+        1. The client calls this endpoint with a callback path.
+
+        2. The server responds with a redirect to the identity provider.
+
+        3. The user authenticates with the identity provider.
+
+        4. The identity provider redirects back to the callback endpoint.
+
+        5. The client can exchange the authorization code for an access token.'
+      operationId: postOcientHttpQueryApiSsoAuthentication
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      reason:
+                        type: string
+                      sql_state:
+                        type: string
+                      vendor_code:
+                        type: integer
+              examples:
+                response:
+                  value:
+                    status:
+                      reason: Query executed successfully
+                      sql_state: '00000'
+                      vendor_code: 0
+        '404':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              examples:
+                response:
+                  value:
+                    message: Ain't no cake like that.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                database:
+                  type: string
+                  description: Target database name. If you do not specify this parameter, the request defaults this value to system.
+                "sso_callback_path\t":
+                  type: string
+                  description: Local path for redirection after successful authentication. This path should be registered with your OpenID provider as a valid redirect URI.
+                do_redirect:
+                  type: boolean
+                  description: 'Determines whether to issue the redirect to the authentication server immediately.
+
+
+                    If you set this value to true (default), the API responds with a 302 redirect to the OpenID provider.
+
+
+                    If you set this value to false, the API returns the URL in the response body, allowing the client to handle the redirect manually.
+
+
+                    If you have no SSO configuration for the database, an error occurs if this parameter value is set to true. Otherwise, the request returns an empty redirect.'
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: "curl -X POST https://my_sql_node.com/v1/sso_authentication \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"database\": \"retail_analytics\",\n        \"sso_callback_path\": \"/auth/callback\",\n        \"do_redirect\": true\n    }'"
+  /v1/callback:
+    get:
+      summary: callback
+      description: 'Provides the authentication token for the OpenID Connect authentication process. The authorization server redirects to callback path after successful authentication.
+
+
+        This endpoint receives the authorization code from the OpenID provider and exchanges it for a token. The provider redirects the user to the application callback URL specified in the initial authentication request.
+
+
+        The client application should not call this endpoint directly. The OpenID provider automatically calls this endpoint in the authentication process.'
+      operationId: getOcientHttpQueryApiCallback
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters:
+      - name: code
+        in: query
+        required: true
+        description: 'The authorization code from the OpenID provider. This endpoint exchanges the code for a token.
+
+
+          Example: code=4/P7q7W91a-oMsCeLvIaQm6bTrgtp7'
+        schema:
+          type: string
+      - name: state
+        in: query
+        required: true
+        description: 'Prevents cross-site request forgery attacks. This value should match the state in the initial authentication request.
+
+
+          Example: state=fRJfv29f3v39Jf39dJf93jf'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: object
+                    properties:
+                      reason:
+                        type: string
+                      sql_state:
+                        type: string
+                      vendor_code:
+                        type: integer
+              examples:
+                response:
+                  value:
+                    status:
+                      reason: Query executed successfully
+                      sql_state: '00000'
+                      vendor_code: 0
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: 'curl -X GET "https://my_sql_node.com/v1/callback?code=4/P7q7W91a-oMsCeLvIaQm6bTrgtp7&state=fRJfv29f3v39Jf39dJf93jf"
+
+          '
+  /v1/sso_token:
+    post:
+      summary: sso_token
+      description: 'Exchange an OpenID Connect identifier token or access token for an Ocient access token.
+
+
+        This endpoint allows clients to directly exchange tokens without following the full browser-based authentication process. This exchange is useful for server-to-server scenarios or when the client already has a valid OpenID token from another process.'
+      operationId: postOcientHttpQueryApiSsoToken
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id_token:
+                    type: string
+                  database:
+                    type: string
+              examples:
+                response:
+                  value:
+                    id_token: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+                    database: retail_analytics
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                database:
+                  type: string
+                  description: Target database for connection after successful authentication. This database must be accessible to the user identified by the SSO token.
+                id_token:
+                  type: string
+                  description: OpenID identifier token received from the OpenID provider after successful authentication. You must provide the id_token or access_token body parameters, but not both.
+                "access_token\t":
+                  type: string
+                  description: OpenID access token received from the OpenID provider after successful authentication. You must provide the id_token or access_token body parameters, but not both.
+              required:
+              - database
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: "curl -X POST https://my_sql_node.com/v1/sso_token \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"id_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n        \"database\": \"retail_analytics\"\n    }'"
+  /v1/sso_device_grant:
+    post:
+      summary: sso_device_grant
+      description: 'Retrieve an OpenID device grant code that the Ocient System can verify and use with the sso_device_grant_verify endpoint.
+
+
+        The device grant process is intended for devices with limited input capabilities or no web browser:
+
+
+        1. Call this endpoint to retrieve a user code and verification URI.
+
+        2. Display the user code and verification URI to the user.
+
+        3. The user visits the verification URI on another device and enters the code.
+
+        4. Call the sso_device_grant_verify endpoint to check if the user has completed verification.'
+      operationId: postOcientHttpQueryApiSsoDeviceGrant
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  verification_uri_complete:
+                    type: string
+                  verification_uri:
+                    type: string
+                  user_code:
+                    type: string
+                  status:
+                    type: object
+                    properties:
+                      reason:
+                        type: string
+                      sql_state:
+                        type: string
+                      vendor_code:
+                        type: integer
+              examples:
+                response:
+                  value:
+                    verification_uri_complete: https://auth.example.com/device?code=BCDFGHJK
+                    verification_uri: https://auth.example.com/device
+                    user_code: BCDFGHJK
+                    status:
+                      reason: Device authorization initiated
+                      sql_state: '00000'
+                      vendor_code: 0
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                database:
+                  type: string
+                  description: Target database name. If you do not specify this parameter, the request defaults this value to system. This value represents the database where the user connects after completing the device grant process.
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: "curl -X POST https://my_sql_node.com/v1/sso_device_grant \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"database\": \"retail_analytics\"\n    }'"
+  /v1/sso_device_grant_verify:
+    post:
+      summary: sso_device_grant_verify
+      description: "Verify a previous device grant request and return an authorization token.\n\nAfter initiating a device grant process with the sso_device_grant endpoint, use this endpoint to check if the user has completed the verification process. If the verification is successful, the endpoint returns an authorization token that you can use for subsequent API calls.\n\nYou can call this endpoint multiple times until one of these outcomes:\n\nThe user completes the verification (returns 200 OK with a token).\n\nThe timeout is reached (returns error).\n \nThe verification is canceled (returns error)."
+      operationId: postOcientHttpQueryApiSsoDeviceGrantVerify
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  username:
+                    type: string
+                  database:
+                    type: string
+                  status:
+                    type: object
+                    properties:
+                      reason:
+                        type: string
+                      sql_state:
+                        type: string
+                      vendor_code:
+                        type: integer
+              examples:
+                response:
+                  value:
+                    access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZG9lIiwiZGIiOiJyZXRhaWxfYW5hbHl0aWNzIiwiZXhwIjoxNjM1NDYxNzEyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                    username: jdoe
+                    database: retail_analytics
+                    status:
+                      reason: Authentication successful
+                      sql_state: '00000'
+                      vendor_code: 0
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_code:
+                  type: string
+                  description: The user code returned from a previous device grant request using the sso_device_grant endpoint.
+                database:
+                  type: string
+                  description: Target database name. If you do not specify this parameter, the request defaults this value to system.
+                timeout:
+                  type: string
+                  description: "The verification timeout, in seconds, indicates how long the server waits for the user to complete the device authorization process before returning a timeout error.\n\nThe default value is 30 seconds. \n\nThe valid range is 1-600 seconds (10 minutes)."
+              required:
+              - user_code
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: "curl -X POST https://my_sql_node.com/v1/sso_device_grant_verify \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"user_code\": \"BCDFGHJK\",\n        \"timeout\": 60,\n        \"database\": \"retail_analytics\"\n    }'"
+  /v1/token_refresh:
+    post:
+      summary: token_refresh
+      description: 'Refreshes an existing access token, extending its validity period. Call this endpoint before the current token expires to maintain uninterrupted access.
+
+
+        Use the expires_in value from the login or previous refresh response to determine when to refresh the token. A common practice is to refresh when the token has half of its time remaining.
+
+
+        On success, the endpoint returns the 200 response and a JSON object containing a new access token and metadata about the refreshed session. Replace the access token in your client with the new token returned by the endpoint, and use the expires_in value to decide when to refresh again.'
+      operationId: postOcientHttpQueryApiTokenRefresh
+      tags:
+      - Ocient HTTP Query API
+      servers:
+      - url: https://{sql_node}
+        variables:
+          sql_node:
+            default: sql_node
+      parameters:
+      - name: Authorization
+        in: header
+        required: true
+        description: The bearer token, which must be a valid access token still within its refresh lifetime configured on the server. To obtain a token, call either the /v1/login or /v1/token_refresh endpoints.
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        required: true
+        description: 'Specifies the request body format. Use the value: application/json.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                  username:
+                    type: string
+                  database:
+                    type: string
+                  expires_in:
+                    type: integer
+                  status:
+                    type: object
+                    properties:
+                      reason:
+                        type: string
+                      sql_state:
+                        type: string
+                      vendor_code:
+                        type: integer
+              examples:
+                response:
+                  value:
+                    access_token: eyJhb...
+                    username: jdoe
+                    database: retail_analytics
+                    expires_in: 3600
+                    status:
+                      reason: Token refreshed successfully
+                      sql_state: '00000'
+                      vendor_code: 0
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                database:
+                  type: string
+                  description: Target database name. If you do not specify this parameter, the request defaults this value to system.
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: "curl -X POST https://your-ocient-instance/v1/token_refresh \\\n    -H \"Authorization: Bearer YOUR_CURRENT_TOKEN\" \\\n    -H \"Content-Type: application/json\" \\\n    -d '{\n        \"database\": \"retail_analytics\"\n    }'"

@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Generated API methods System Information REST Endpoints API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "System Information REST Endpoints",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Statistics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{sql_node}/v1/stats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve the statistics on each node in the database."
+        },
+        {
+          "info": {
+            "name": "Get Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{sql_node}/v1/version"
+          },
+          "docs": "Retrieve the version of the software running."
+        },
+        {
+          "info": {
+            "name": "Get Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{sql_node}/v1/status"
+          },
+          "docs": "Retrieve the status of the software running."
+        },
+        {
+          "info": {
+            "name": "Get Configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{sql_node}/v1/sysconfig"
+          },
+          "docs": "Retrieve the configuration about this node in JSON format."
+        },
+        {
+          "info": {
+            "name": "Get Configuration of Whole System",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{sql_node}/v1/dbconfig"
+          },
+          "docs": "Retrieve the configuration of the system as a whole in JSON format."
+        },
+        {
+          "info": {
+            "name": "Get Configuration Parameters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{sql_node}/v1/config"
+          },
+          "docs": "Retrieve values of configuration parameters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1490 @@
+{
+  "item": [
+    {
+      "id": "c375b14f-e614-47ba-85b0-261f6354dee9",
+      "name": "Ocient HTTP Query API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4d824502-b77d-41c7-95e5-b865c39ca82a",
+          "name": "execute",
+          "request": {
+            "name": "execute",
+            "description": {
+              "content": "Executes a SQL statement and returns the results. Supports requests for both regular and streaming responses. \n\nWith streaming, results return as they become available using the HTTP chunked transfer encoding. Each chunk contains a valid JSON object that you can parse independently.\n\nFor details on streaming, including large-response configuration, see the header parameters. \n\nYou can specify the database in the request body. If you do not specify the database, the Ocient System defaults to the database specified in the authentication token or system settings. If you specify a database in the request, this value overrides any alternate database value specified as a body parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "execute",
+                ":database"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Sets the format for the requested data. \n\nNote: This parameter applies only when using Content-Type: text/plain. When using Content-Type: application/json, specify the format in the request body.\n\nSupported values are: \n\n\"array\" — Returns schema and data as arrays (more efficient for large data sets). (default)\n\"collection\" — Returns data as JSON objects (more convenient for client processing).\n\nExample: format=collection"
+                },
+                {
+                  "disabled": false,
+                  "key": "schema",
+                  "value": "<string>",
+                  "description": "The schema to use for the SQL statement.\n\nExample: schema=mydata\n\nNote: This parameter applies only when using Content-Type: text/plain. When using Content-Type: application/json, specify the schema in the request body."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database",
+                  "description": "(Required) The specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings.\n\nIf you include a database in the path, this value overrides any alternate database value specified as a body parameter."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Supported compression algorithms for responses. You can specify multiple algorithms as a comma-separated list. \n\nSupported values are: \n\"gzip\" \n\"deflate\" \n\"be\" (Brotli)\nor combinations like: \"gzip, be\".\n\nNote: For large result sets, compression can impact performance. Without compression, the result sets can be chunks of rows processed in a streaming fashion. With compression, the entire result set must be compressed before it is returned to the client. The client side must decompress the entire result set before processing any rows.",
+                "key": "accept-encoding",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Indicates the preferred encoding type from those specified in the accept-encoding parameter. This header provides fine-grained control when the accept-encoding parameter contains multiple values, allowing the client to specify which encoding is preferred for this specific request explicitly.\n\nSupported values are: \n\n\"gzip\" \n\"br\"",
+                "key": "preferred-encoding",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Specifies the chosen compression level for the selected encoding algorithm. Values range from 1 (fastest, least compression) to 9 (slowest, maximum compression). The exact behavior depends on the specific compression algorithm.",
+                "key": "preferred-compression-level",
+                "value": "<integer>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"statement\": \"<string>\",\n  \"database\": \"<string>\",\n  \"format\": \"<string>\",\n  \"params\": \"<object>\",\n  \"fetch_size\": \"<integer>\",\n  \"max_rows\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a4c23e1e-d4bb-412b-bfd9-dad6d88362fe",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "execute",
+                    ":database"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "schema",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database",
+                      "description": "(Required) The specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings.\n\nIf you include a database in the path, this value overrides any alternate database value specified as a body parameter."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) An access token to connect to your Ocient System. \n\nTo receive an access token, you must provide your username and password using the login endpoint. \n\nThe system passes the credentials using the Authorization HTTP header using Base64-encoded Basic Authentication.",
+                    "key": "authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the request body format. Options include: \n\napplication/json\n\nDescription: The standard option for submitting queries and receiving responses as a single JSON object or array. Use when submitting queries with relatively small or moderate result sets or when you want the entire result set in one response.\n\napplication/stream+json\n\nDescription: Enables streaming of multiple JSON objects, allowing the API to send results as they become available. Use when querying large tables or expecting a large volume of results or when you want to process each row or result as soon as it is received, without waiting for the full response.",
+                    "key": "content-type",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Supported compression algorithms for responses. You can specify multiple algorithms as a comma-separated list. \n\nSupported values are: \n\"gzip\" \n\"deflate\" \n\"be\" (Brotli)\nor combinations like: \"gzip, be\".\n\nNote: For large result sets, compression can impact performance. Without compression, the result sets can be chunks of rows processed in a streaming fashion. With compression, the entire result set must be compressed before it is returned to the client. The client side must decompress the entire result set before processing any rows.",
+                    "key": "accept-encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Supported response media types. Regardless of the Accept header, the API returns large query results using chunked encoding. Also, see the note about compression in the accept-encoding parameter.\n\nSupported values are: \n\n\"application/json\" (default)\n\"application/stream+json\"",
+                    "key": "accept",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates the preferred encoding type from those specified in the accept-encoding parameter. This header provides fine-grained control when the accept-encoding parameter contains multiple values, allowing the client to specify which encoding is preferred for this specific request explicitly.\n\nSupported values are: \n\n\"gzip\" \n\"br\"",
+                    "key": "preferred-encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specifies the chosen compression level for the selected encoding algorithm. Values range from 1 (fastest, least compression) to 9 (slowest, maximum compression). The exact behavior depends on the specific compression algorithm.",
+                    "key": "preferred-compression-level",
+                    "value": "<integer>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"statement\": \"<string>\",\n  \"database\": \"<string>\",\n  \"format\": \"<string>\",\n  \"params\": \"<object>\",\n  \"fetch_size\": \"<integer>\",\n  \"max_rows\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"query_id\": \"ac4dd039-e385-400b-a428-fd1fdcd02e30\",\n  \"status\": {\n    \"reason\": \"The operation completed successfully\",\n    \"sql_state\": \"00000\",\n    \"vendor_code\": 0\n  },\n  \"data\": [\n    {\n      \"c1\": 1\n    },\n    {\n      \"c1\": 2\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f3d39806-da95-4a86-933a-9d29def7d997",
+          "name": "execute",
+          "request": {
+            "name": "execute",
+            "description": {
+              "content": "Alternative GET method for executing SQL statements. This method passes parameters as URL query parameters. This method does not support the params body parameter.\n\nSpecify which database to access in the query parameters. If you do not specify a database, the connection defaults to the database from the authentication token or system settings.\n\nThis method is most suitable for simple, read-only queries where the statement can be safely included in a URL. For complex queries or those with parameters, use the POST method instead.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "execute",
+                ":database"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "statement",
+                  "value": "<string>",
+                  "description": "(Required) A valid SQL statement to execute. The statement must be URL-encoded, e.g., statement=SELECT%20*%20FROM%20customers%20LIMIT%2010%3B"
+                },
+                {
+                  "disabled": false,
+                  "key": "database",
+                  "value": "<string>",
+                  "description": "A specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "<string>",
+                  "description": "Sets the response format. \n\nSupported values are: \n\n\"array\" — Returns the schema and data as arrays (more efficient for large data sets). (default)\n\"collection\" — Returns data as JSON objects (more convenient for client processing)."
+                },
+                {
+                  "disabled": false,
+                  "key": "fetch_size",
+                  "value": "<string>",
+                  "description": "The number of rows to return in each chunk for streaming responses. This value must be 0 or greater. A value of 0 (default) means the database determines how many rows to return. \n\nUse smaller values for interactive applications (100-1000 rows). For batch processing, use larger values (5000-10000 rows)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "database",
+                  "description": "(Required) The specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings.\n\nIf you include a database in the path, this value overrides any alternate database value specified as a body parameter."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Supported compression algorithms for responses. You can specify multiple algorithms as a comma-separated list. \n\nSupported values are: \n'gzip' \n'deflate' \n'br' (Brotli)\nor combinations like: 'gzip, br'.\n\nNote: For large result sets, compression can impact performance. Without compression, the result sets can be chunks of rows processed in a streaming fashion. With compression, the entire result set must be compressed before it is returned to the client. The client side must decompress the entire result set before processing any rows.",
+                "key": "accept-encoding",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Indicates the preferred encoding type from those specified in the accept-encoding parameter. This header provides fine-grained control when the accept-encoding parameter contains multiple values, allowing the client to specify which encoding is preferred for this specific request explicitly.\n\nSupported values are: \n\n\"gzip\" \n\"br\"",
+                "key": "preferred-encoding",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Specifies the chosen compression level for the selected encoding algorithm. Values typically range from 1 (fastest, least compression) to 9 (slowest, maximum compression). The exact behavior depends on the specific compression algorithm.",
+                "key": "preferred-compression-level",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2f1004f3-8065-4c41-ae60-a745db237816",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "execute",
+                    ":database"
+                  ],
+                  "query": [
+                    {
+                      "key": "statement",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "database",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fetch_size",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "database",
+                      "description": "(Required) The specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings.\n\nIf you include a database in the path, this value overrides any alternate database value specified as a body parameter."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) An access token to connect to your Ocient System. \n\nTo receive an access token, you must provide your username and password using the login endpoint. \n\nThe system passes the credentials using the Authorization HTTP header using Base64-encoded Basic Authentication.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the request body format. Options include: \n\napplication/json\n\nDescription: The standard option for submitting queries and receiving responses as a single JSON object or array. Use when submitting queries with relatively small or moderate result sets or when you want the entire result set in one response.\n\napplication/stream+json\n\nDescription: Enables streaming of multiple JSON objects, allowing the API to send results as they become available. Use when querying large tables or expecting a large volume of results or when you want to process each row or result as soon as it is received, without waiting for the full response.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Supported compression algorithms for responses. You can specify multiple algorithms as a comma-separated list. \n\nSupported values are: \n'gzip' \n'deflate' \n'br' (Brotli)\nor combinations like: 'gzip, br'.\n\nNote: For large result sets, compression can impact performance. Without compression, the result sets can be chunks of rows processed in a streaming fashion. With compression, the entire result set must be compressed before it is returned to the client. The client side must decompress the entire result set before processing any rows.",
+                    "key": "accept-encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Supported response media types. Regardless of the Accept header, the API returns large query results using chunked encoding. Also, see the note about compression in the accept-encoding parameter.\n\nSupported values are: \n\n\"application/json\" (default)\n\"application/stream+json\"",
+                    "key": "accept",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates the preferred encoding type from those specified in the accept-encoding parameter. This header provides fine-grained control when the accept-encoding parameter contains multiple values, allowing the client to specify which encoding is preferred for this specific request explicitly.\n\nSupported values are: \n\n\"gzip\" \n\"br\"",
+                    "key": "preferred-encoding",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Specifies the chosen compression level for the selected encoding algorithm. Values typically range from 1 (fastest, least compression) to 9 (slowest, maximum compression). The exact behavior depends on the specific compression algorithm.",
+                    "key": "preferred-compression-level",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"query_id\": \"2d5af900-cb02-44f4-b974-6264d2133e96\",\n  \"status\": {\n    \"reason\": \"The operation completed successfully\",\n    \"sql_state\": \"00000\",\n    \"vendor_code\": 0\n  },\n  \"data\": [\n    {\n      \"c1\": 1\n    },\n    {\n      \"c1\": 2\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d1e68a0-1caa-4f3c-b895-027786fa1948",
+          "name": "info",
+          "request": {
+            "name": "info",
+            "description": {
+              "content": "Returns basic system version information about the Ocient System and the HTTP Query API server.\n\nYou can use this endpoint to verify connectivity and to check compatible versions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "info"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dad3d10a-f3dd-40f0-aa3e-a3f1c1dc11ae",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "info"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"default_database\": \"system\",\n  \"openapi_version\": \"1.1.0\",\n  \"status\": {\n    \"vendor_code\": 0,\n    \"sql_state\": \"00000\",\n    \"reason\": \"The operation completed successfully\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7454cd58-fc7d-44b4-8533-4b68a6f145be",
+          "name": "login",
+          "request": {
+            "name": "login",
+            "description": {
+              "content": "Authenticates a user with a username and password and then returns a token for use in subsequent API calls. This request also sets a session cookie. \n\nInclude the returned access token in the authorization header for subsequent requests in the format: \nAuthorization: Bearer {token}.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "login"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"database\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "283290b5-5142-44bc-8ec4-58ae0c796a28",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "login"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"username\": \"<string>\",\n  \"password\": \"<string>\",\n  \"database\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\n  \"username\": \"jdoe\",\n  \"database\": \"retail_analytics\",\n  \"expires_in\": 3600,\n  \"status\": {\n    \"reason\": \"Authentication successful\",\n    \"sql_state\": \"00000\",\n    \"vendor_code\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7984b259-17e7-4d5d-852c-e148bdf8e675",
+          "name": "logout",
+          "request": {
+            "name": "logout",
+            "description": {
+              "content": "Log out from a SQL session. This clears any associated cookies, but does not invalidate any access tokens.\n\nThis endpoint terminates only the cookie-based session. Any bearer tokens that were previously issued continue to work until they expire.\n         \nYou must discard any stored bearer tokens to complete the log out in a client application.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "logout"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"database\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e6ef94ff-28f0-4f0b-a0c2-a99977132616",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "logout"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"database\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": {\n    \"reason\": \"Logged out successfully\",\n    \"sql_state\": \"00000\",\n    \"vendor_code\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6df3309c-ce03-4bd5-bed2-14b0fb52093f",
+          "name": "sso_authentication",
+          "request": {
+            "name": "sso_authentication",
+            "description": {
+              "content": "Initiates the OpenID Connect authentication process by redirecting to the authorization server.\n\nThis endpoint begins the standard OpenID Connect authentication process:\n\n1. The client calls this endpoint with a callback path.\n2. The server responds with a redirect to the identity provider.\n3. The user authenticates with the identity provider.\n4. The identity provider redirects back to the callback endpoint.\n5. The client can exchange the authorization code for an access token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "sso_authentication"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"database\": \"<string>\",\n  \"sso_callback_path\\t\": \"<string>\",\n  \"do_redirect\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4e7ad4e1-9625-4487-aff3-20621e5c0814",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "sso_authentication"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"database\": \"<string>\",\n  \"sso_callback_path\\t\": \"<string>\",\n  \"do_redirect\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": {\n    \"reason\": \"Query executed successfully\",\n    \"sql_state\": \"00000\",\n    \"vendor_code\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "45445676-b00e-4728-99ae-89891a98b90e",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "sso_authentication"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"database\": \"<string>\",\n  \"sso_callback_path\\t\": \"<string>\",\n  \"do_redirect\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"Ain't no cake like that.\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0968b44d-7353-4c4b-b8ef-d268ad81b000",
+          "name": "callback",
+          "request": {
+            "name": "callback",
+            "description": {
+              "content": "Provides the authentication token for the OpenID Connect authentication process. The authorization server redirects to callback path after successful authentication.\n\nThis endpoint receives the authorization code from the OpenID provider and exchanges it for a token. The provider redirects the user to the application callback URL specified in the initial authentication request.\n\nThe client application should not call this endpoint directly. The OpenID provider automatically calls this endpoint in the authentication process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "callback"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "(Required) The authorization code from the OpenID provider. This endpoint exchanges the code for a token.\n\nExample: code=4/P7q7W91a-oMsCeLvIaQm6bTrgtp7"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "(Required) Prevents cross-site request forgery attacks. This value should match the state in the initial authentication request.\n\nExample: state=fRJfv29f3v39Jf39dJf93jf"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0147c910-28bf-4a07-8bfa-e18116c8a75a",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "callback"
+                  ],
+                  "query": [
+                    {
+                      "key": "code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "state",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": {\n    \"reason\": \"Query executed successfully\",\n    \"sql_state\": \"00000\",\n    \"vendor_code\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e54c19a4-d620-417a-a0d9-01253eeebe63",
+          "name": "sso_token",
+          "request": {
+            "name": "sso_token",
+            "description": {
+              "content": "Exchange an OpenID Connect identifier token or access token for an Ocient access token.\n\nThis endpoint allows clients to directly exchange tokens without following the full browser-based authentication process. This exchange is useful for server-to-server scenarios or when the client already has a valid OpenID token from another process.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "sso_token"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"database\": \"<string>\",\n  \"id_token\": \"<string>\",\n  \"access_token\\t\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f3391aa4-731a-45f6-a6a7-eae0b0c8ddd8",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "sso_token"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"database\": \"<string>\",\n  \"id_token\": \"<string>\",\n  \"access_token\\t\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id_token\": \"eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...\",\n  \"database\": \"retail_analytics\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "015ae944-b7b1-469a-82c1-5eaaff4d94b8",
+          "name": "sso_device_grant",
+          "request": {
+            "name": "sso_device_grant",
+            "description": {
+              "content": "Retrieve an OpenID device grant code that the Ocient System can verify and use with the sso_device_grant_verify endpoint.\n\nThe device grant process is intended for devices with limited input capabilities or no web browser:\n\n1. Call this endpoint to retrieve a user code and verification URI.\n2. Display the user code and verification URI to the user.\n3. The user visits the verification URI on another device and enters the code.\n4. Call the sso_device_grant_verify endpoint to check if the user has completed verification.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "sso_device_grant"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"database\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8e00ac89-fda1-4392-8845-e03683bb6974",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "sso_device_grant"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"database\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"verification_uri_complete\": \"https://auth.example.com/device?code=BCDFGHJK\",\n  \"verification_uri\": \"https://auth.example.com/device\",\n  \"user_code\": \"BCDFGHJK\",\n  \"status\": {\n    \"reason\": \"Device authorization initiated\",\n    \"sql_state\": \"00000\",\n    \"vendor_code\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "544bd5fc-8127-4f85-b63e-9103d08f51e8",
+          "name": "sso_device_grant_verify",
+          "request": {
+            "name": "sso_device_grant_verify",
+            "description": {
+              "content": "Verify a previous device grant request and return an authorization token.\n\nAfter initiating a device grant process with the sso_device_grant endpoint, use this endpoint to check if the user has completed the verification process. If the verification is successful, the endpoint returns an authorization token that you can use for subsequent API calls.\n\nYou can call this endpoint multiple times until one of these outcomes:\n\nThe user completes the verification (returns 200 OK with a token).\n\nThe timeout is reached (returns error).\n \nThe verification is canceled (returns error).",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "sso_device_grant_verify"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_code\": \"<string>\",\n  \"database\": \"<string>\",\n  \"timeout\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7edabcd2-7060-41d6-b255-3231091cc9a7",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "sso_device_grant_verify"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"user_code\": \"<string>\",\n  \"database\": \"<string>\",\n  \"timeout\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqZG9lIiwiZGIiOiJyZXRhaWxfYW5hbHl0aWNzIiwiZXhwIjoxNjM1NDYxNzEyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\",\n  \"username\": \"jdoe\",\n  \"database\": \"retail_analytics\",\n  \"status\": {\n    \"reason\": \"Authentication successful\",\n    \"sql_state\": \"00000\",\n    \"vendor_code\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18c1294c-b127-4c13-a647-e414fc3bbec8",
+          "name": "token_refresh",
+          "request": {
+            "name": "token_refresh",
+            "description": {
+              "content": "Refreshes an existing access token, extending its validity period. Call this endpoint before the current token expires to maintain uninterrupted access.\n\nUse the expires_in value from the login or previous refresh response to determine when to refresh the token. A common practice is to refresh when the token has half of its time remaining.\n\nOn success, the endpoint returns the 200 response and a JSON object containing a new access token and metadata about the refreshed session. Replace the access token in your client with the new token returned by the endpoint, and use the expires_in value to decide when to refresh again.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "port": "sql_node",
+              "path": [
+                "v1",
+                "token_refresh"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "sql_node",
+                  "key": "sql_node"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"database\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fef3834c-2ce8-4cd1-8f6d-2f5aa5ff590d",
+              "name": "Response",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "port": "sql_node",
+                  "path": [
+                    "v1",
+                    "token_refresh"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "sql_node",
+                      "key": "sql_node"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) The bearer token, which must be a valid access token still within its refresh lifetime configured on the server. To obtain a token, call either the /v1/login or /v1/token_refresh endpoints.",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Specifies the request body format. Use the value: application/json.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"database\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"eyJhb...\",\n  \"username\": \"jdoe\",\n  \"database\": \"retail_analytics\",\n  \"expires_in\": 3600,\n  \"status\": {\n    \"reason\": \"Token refreshed successfully\",\n    \"sql_state\": \"00000\",\n    \"vendor_code\": 0\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "sql_node",
+      "key": "sql_node"
+    },
+    {
+      "type": "string",
+      "value": "https://{{sql_node}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "fcd316ab-a2a8-4898-9d19-73970db79fd7",
+    "name": "Generated API methods Ocient HTTP Query API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Generated from imported ApiMethodV2 blocks.",
+      "type": "text/plain"
+    }
+  }
+}

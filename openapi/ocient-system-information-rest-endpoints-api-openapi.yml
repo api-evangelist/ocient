@@ -1,0 +1,498 @@
+openapi: 3.2.0
+info:
+  title: Generated API methods System Information REST Endpoints API
+  version: 1.0.0
+  description: Generated from imported ApiMethodV2 blocks.
+servers:
+- url: https://{sql_node}
+  variables:
+    sql_node:
+      default: sql_node
+- url: http://oc1-lts0:9090
+tags:
+- name: System Information REST Endpoints
+paths:
+  /v1/stats:
+    get:
+      summary: Get Statistics
+      description: Retrieve the statistics on each node in the database.
+      operationId: getSystemInformationRestEndpointsGetStatistics
+      tags:
+      - System Information REST Endpoints
+      servers:
+      - url: http://oc1-lts0:9090
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    time:
+                      type: string
+                    timestamp:
+                      type: string
+                    node:
+                      type: string
+                    value:
+                      type: integer
+              examples:
+                response:
+                  value:
+                  - name: vm.stats.pdfCacheSize
+                    time: '1686335017884363'
+                    timestamp: '2023-06-09T18:23:37.884Z'
+                    node: sql0
+                    value: 4680936
+                  - name: localStorageService.device.spaceFree
+                    time: '1686335145388588'
+                    timestamp: '2023-06-09T18:25:45.388Z'
+                    node: sql0
+                    value: 0
+                    device: 4418fbc3-fcf9-5cfe-b2b3-b41a8247a600
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: string
+                  description: Filter for the statistics.
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: 'curl --location --request GET ''http://oc1-lts0:9090/v1/stats'' \
+
+          --header ''Accept: application/json'' '
+  /v1/version:
+    get:
+      summary: Get Version
+      description: Retrieve the version of the software running.
+      operationId: getSystemInformationRestEndpointsGetVersion
+      tags:
+      - System Information REST Endpoints
+      servers:
+      - url: http://oc1-lts0:9090
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                  timestamp:
+                    type: string
+                  git_commit:
+                    type: string
+                  build_user:
+                    type: string
+                  build_type:
+                    type: string
+                  build_flags:
+                    type: string
+              examples:
+                response:
+                  value:
+                    version: 24.0.0
+                    timestamp: '20231110.212417'
+                    git_commit: 178ba7a7549bd40c137035c5cd4f10c55fd31b00
+                    build_user: ''
+                    build_type: DEBUG
+                    build_flags: fb,lld_flags,mcmodel_medium,tls_model_initial_exec
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: 'curl --location --request GET ''http://oc1-lts0:9090/v1/version'' \
+
+          --header ''Accept: application/json'''
+  /v1/status:
+    get:
+      summary: Get Status
+      description: Retrieve the status of the software running.
+      operationId: getSystemInformationRestEndpointsGetStatus
+      tags:
+      - System Information REST Endpoints
+      servers:
+      - url: http://oc1-lts0:9090
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                response:
+                  value: Active
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: 'curl --location --request GET ''http://oc1-lts0:9090/v1/status'' \
+
+          --header ''Accept: application/json'''
+  /v1/sysconfig:
+    get:
+      summary: Get Configuration
+      description: Retrieve the configuration about this node in JSON format.
+      operationId: getSystemInformationRestEndpointsGetConfiguration
+      tags:
+      - System Information REST Endpoints
+      servers:
+      - url: http://oc1-lts0:9090
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  system_name:
+                    type: string
+                  node_name:
+                    type: string
+                  node_uuid:
+                    type: string
+                  hostname:
+                    type: string
+                  roles:
+                    type: array
+                    items:
+                      type: string
+                  failed_roles:
+                    type: array
+                    items: {}
+                  endpoints:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        address:
+                          type: string
+                        port:
+                          type: integer
+                  totalram:
+                    type: integer
+                  processors:
+                    type: integer
+                  hugepages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        size:
+                          type: integer
+                        total:
+                          type: integer
+                        free:
+                          type: integer
+                        reserved:
+                          type: integer
+                  storage_devices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        address:
+                          type: string
+                        type:
+                          type: string
+                        use:
+                          type: string
+                        pci_address:
+                          type: string
+                        mount_point:
+                          type: string
+                        device_path:
+                          type: string
+                  connections:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        address:
+                          type: string
+                        remote_port:
+                          type: integer
+                        state:
+                          type: string
+                        locally_initiated:
+                          type: boolean
+              examples:
+                response:
+                  value:
+                    system_name: abc7d45f-1e9c-4210-811d-ffg6dbd82297
+                    node_name: sql0
+                    node_uuid: 578c11a2-1996-523f-a371-c393b4e5ff2e
+                    hostname: username-dev0
+                    roles:
+                    - administration
+                    - health
+                    - vm
+                    - cmdComp
+                    failed_roles: []
+                    endpoints:
+                    - name: adminopenendpoint
+                      address: localhost
+                      port: 19000
+                    - name: restendpoint
+                      address: localhost
+                      port: 8000
+                    - name: adminsecureendpoint
+                      address: localhost
+                      port: 18500
+                    - name: dataendpoint
+                      address: localhost
+                      port: 16500
+                    - name: sqlexternal
+                      address: localhost
+                      port: 3070
+                    totalram: 450948103168
+                    processors: 120
+                    hugepages:
+                    - size: 1257152
+                      total: 0
+                      free: 0
+                      reserved: 0
+                    - size: 1060041824
+                      total: 0
+                      free: 0
+                      reserved: 0
+                    storage_devices:
+                    - id: 4425fad3-fcf9-5cfd-f3b3-b47a8457a300
+                      address: /address/4425fad3-fcf9-5cfd-f3b3-b47a8457a300.dat
+                      type: SATA
+                      use: PAYLOAD
+                      pci_address: ''
+                      mount_point: ''
+                      device_path: ''
+                    - id: 9ae82aa7-ab73-5g86-bb34-13b27945c701
+                      address: /address/9ae82aa7-ab73-5g86-bb34-13b27945c701.dat
+                      type: SATA
+                      use: PAYLOAD
+                      pci_address: ''
+                      mount_point: ''
+                      device_path: ''
+                    connections:
+                    - address: 111.1.1.1
+                      remote_port: 45598
+                      state: connected
+                      locally_initiated: false
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: 'curl --location --request GET ''http://oc1-lts0:9090/v1/sysconfig'' \
+
+          --header ''Accept: application/json'''
+  /v1/dbconfig:
+    get:
+      summary: Get Configuration of Whole System
+      description: Retrieve the configuration of the system as a whole in JSON format.
+      operationId: getSystemInformationRestEndpointsGetConfigurationOfWholeSystem
+      tags:
+      - System Information REST Endpoints
+      servers:
+      - url: http://oc1-lts0:9090
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  system_name:
+                    type: string
+                  node_name:
+                    type: string
+                  node_uuid:
+                    type: string
+                  hostname:
+                    type: string
+                  roles:
+                    type: array
+                    items:
+                      type: string
+                  failed_roles:
+                    type: array
+                    items: {}
+                  endpoints:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        type:
+                          type: string
+                        address:
+                          type: string
+                        port:
+                          type: integer
+                  totalram:
+                    type: integer
+                  processors:
+                    type: integer
+                  hugepages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        size:
+                          type: integer
+                        total:
+                          type: integer
+                        free:
+                          type: integer
+                        reserved:
+                          type: integer
+                  storage_devices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        address:
+                          type: string
+                        type:
+                          type: string
+                        use:
+                          type: string
+                        pci_address:
+                          type: string
+                        mount_point:
+                          type: string
+                        device_path:
+                          type: string
+                  connections:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        address:
+                          type: string
+                        remote_port:
+                          type: integer
+                        state:
+                          type: string
+                        locally_initiated:
+                          type: boolean
+              examples:
+                response:
+                  value:
+                    system_name: abc7d45f-1e9c-4210-811d-ffg6dbd82297
+                    node_name: sql0
+                    node_uuid: 578c11a2-1996-523f-a371-c393b4e5ff2e
+                    hostname: username-dev0
+                    roles:
+                    - administration
+                    - health
+                    - vm
+                    - cmdComp
+                    failed_roles: []
+                    endpoints:
+                    - name: adminopenendpoint
+                      type: FULL
+                      address: localhost
+                      port: 18000
+                    - name: restendpoint
+                      type: FULL
+                      address: localhost
+                      port: 8000
+                    - name: adminsecureendpoint
+                      type: FULL
+                      address: localhost
+                      port: 18500
+                    - name: dataendpoint
+                      type: FULL
+                      address: localhost
+                      port: 16500
+                    - name: sqlexternal
+                      type: FULL
+                      address: localhost
+                      port: 3070
+                    totalram: 450948103168
+                    processors: 120
+                    hugepages:
+                    - size: 1257152
+                      total: 0
+                      free: 0
+                      reserved: 0
+                    - size: 1060041824
+                      total: 0
+                      free: 0
+                      reserved: 0
+                    storage_devices:
+                    - id: 4425fad3-fcf9-5cfd-f3b3-b47a8457a300
+                      address: /address/4425fad3-fcf9-5cfd-f3b3-b47a8457a300.dat
+                      type: SATA
+                      use: PAYLOAD
+                      pci_address: ''
+                      mount_point: ''
+                      device_path: ''
+                    - id: 9ae82aa7-ab73-5g86-bb34-13b27945c701
+                      address: /address/9ae82aa7-ab73-5g86-bb34-13b27945c701.dat
+                      type: SATA
+                      use: PAYLOAD
+                      pci_address: ''
+                      mount_point: ''
+                      device_path: ''
+                    connections:
+                    - address: 111.1.1.1
+                      remote_port: 45598
+                      state: connected
+                      locally_initiated: false
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: 'curl --location --request GET ''http://oc1-lts0:9090/v1/dbconfig'' \
+
+          --header ''Accept: application/json'' \
+
+          --data-raw ''{"filter":"string"}'''
+  /v1/config:
+    get:
+      summary: Get Configuration Parameters
+      description: Retrieve values of configuration parameters.
+      operationId: getSystemInformationRestEndpointsGetConfigurationParameters
+      tags:
+      - System Information REST Endpoints
+      servers:
+      - url: http://oc1-lts0:9090
+      parameters: []
+      responses:
+        '200':
+          description: Response
+          content:
+            text/plain:
+              schema:
+                type: string
+              examples:
+                response:
+                  value: "{\n  \"siloType\": \"xg::runtime::physicalSiloSet_t\",\n  \"tlbfsInfo.enabled\": \"false\",\n  \"tlbfsInfo.mountPoint\": \"/mnt/name/hugepages1G\",\n  \"tlbfsInfo.hugePageSize\": \"1073741824\",\n  \"tlbfsInfo.hugePageCount\": \"512\",\n  \"memory.warningHpMemoryUsageRatio\": \"0.80000000000000004\",\n  \"memory.preferredHpMemoryUsageRatio\": \"0.94999999999999996\",\n  \"memory.warningHeapMemoryUsageRatio\": \"0.90000000000000002\",\n  \"silos.numSilos\": \"2\",\n  \"silos.coreSets.computeCoreMask\": \"0b111111111111000\",\n  \"silos.coreSets.ioCoreMask\": \"0b1000000111100000\",\n  \"silos.coreSets.networkCoreMask\": \"0b10000000000111100\",\n  \"silos.coreSets.generalCoreMask\": \"0b100000000000000111\",\n  \"gdsClientParameters_t.batchTimer\": \"150000000n\",\n  \"gdsClientParameters_t.maxBatchCount\": \"4096\",\n  \"ports.adminsecure\": \"18500\",\n  \"ports.data\": \"16500\",\n  \"ports.hsi\": \"16900\",\n  \"ports.ingress\": \"15300\",\n  \"ports.rest\": \"8000\",\n  \"ports.sql\": \"3070\",\n  \"ports.adminopen\": \"18000\"\n  \"operatorvm.vmProtocolParameters.vmClusterRaftFileParameters.fileName\": \"sql0-vmCluster.raft\"\n}"
+      x-codeSamples:
+      - lang: curl
+        label: curl
+        source: 'curl --location --request GET ''http://oc1-lts0:9090/v1/config'' \
+
+          --header ''Accept: application/json'''

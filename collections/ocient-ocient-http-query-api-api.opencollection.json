@@ -1,0 +1,299 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Generated API methods Ocient HTTP Query API API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ocient HTTP Query API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "execute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{sql_node}/v1/execute/:database",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "accept-encoding",
+                "value": ""
+              },
+              {
+                "name": "accept",
+                "value": ""
+              },
+              {
+                "name": "preferred-encoding",
+                "value": ""
+              },
+              {
+                "name": "preferred-compression-level",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings.\n\nIf you include a database in the path, this value overrides any alternate database value specified as a body parameter."
+              },
+              {
+                "name": "statement",
+                "value": "",
+                "type": "query",
+                "description": "A valid SQL statement to execute. The statement must be URL-encoded, e.g., statement=SELECT%20*%20FROM%20customers%20LIMIT%2010%3B"
+              },
+              {
+                "name": "database",
+                "value": "",
+                "type": "query",
+                "description": "A specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Sets the response format. \n\nSupported values are: \n\n\"array\" — Returns the schema and data as arrays (more efficient for large data sets). (default)\n\"collection\" — Returns data as JSON objects (more convenient for client processing)."
+              },
+              {
+                "name": "fetch_size",
+                "value": "",
+                "type": "query",
+                "description": "The number of rows to return in each chunk for streaming responses. This value must be 0 or greater. A value of 0 (default) means the database determines how many rows to return. \n\nUse smaller values for interactive applications (100-1000 rows). For batch processing, use larger values (5000-10000 rows)."
+              }
+            ]
+          },
+          "docs": "Alternative GET method for executing SQL statements. This method passes parameters as URL query parameters. This method does not support the params body parameter.\n\nSpecify which database to access in the query parameters. If you do not specify a database, the connection defaults to the database from the authentication token or system settings.\n\nThis method is most suitable for simple, read-only queries where the statement can be safely included in a URL. For complex queries or those with parame"
+        },
+        {
+          "info": {
+            "name": "execute",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{sql_node}/v1/execute/:database",
+            "headers": [
+              {
+                "name": "authorization",
+                "value": ""
+              },
+              {
+                "name": "content-type",
+                "value": ""
+              },
+              {
+                "name": "accept-encoding",
+                "value": ""
+              },
+              {
+                "name": "accept",
+                "value": ""
+              },
+              {
+                "name": "preferred-encoding",
+                "value": ""
+              },
+              {
+                "name": "preferred-compression-level",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "database",
+                "value": "",
+                "type": "path",
+                "description": "The specific database in your system for the API call. \n\nIf you do not specify the database, the executed query defaults to the database from the authentication token or system settings.\n\nIf you include a database in the path, this value overrides any alternate database value specified as a body parameter."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Sets the format for the requested data. \n\nNote: This parameter applies only when using Content-Type: text/plain. When using Content-Type: application/json, specify the format in the request body.\n\nSupported values are: \n\n\"array\" — Returns schema and data as arrays (more efficient for large data sets). (default)\n\"collection\" — Returns data as JSON objects (more convenient for client processing).\n\nExample: format=collection"
+              },
+              {
+                "name": "schema",
+                "value": "",
+                "type": "query",
+                "description": "The schema to use for the SQL statement.\n\nExample: schema=mydata\n\nNote: This parameter applies only when using Content-Type: text/plain. When using Content-Type: application/json, specify the schema in the request body."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Executes a SQL statement and returns the results. Supports requests for both regular and streaming responses. \n\nWith streaming, results return as they become available using the HTTP chunked transfer encoding. Each chunk contains a valid JSON object that you can parse independently.\n\nFor details on streaming, including large-response configuration, see the header parameters. \n\nYou can specify the database in the request body. If you do not specify the database, the Ocient System defaults to the "
+        },
+        {
+          "info": {
+            "name": "info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{sql_node}/v1/info"
+          },
+          "docs": "Returns basic system version information about the Ocient System and the HTTP Query API server.\n\nYou can use this endpoint to verify connectivity and to check compatible versions."
+        },
+        {
+          "info": {
+            "name": "login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{sql_node}/v1/login",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates a user with a username and password and then returns a token for use in subsequent API calls. This request also sets a session cookie. \n\nInclude the returned access token in the authorization header for subsequent requests in the format: \nAuthorization: Bearer {token}."
+        },
+        {
+          "info": {
+            "name": "logout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{sql_node}/v1/logout",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Log out from a SQL session. This clears any associated cookies, but does not invalidate any access tokens.\n\nThis endpoint terminates only the cookie-based session. Any bearer tokens that were previously issued continue to work until they expire.\n         \nYou must discard any stored bearer tokens to complete the log out in a client application."
+        },
+        {
+          "info": {
+            "name": "sso_authentication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{sql_node}/v1/sso_authentication",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates the OpenID Connect authentication process by redirecting to the authorization server.\n\nThis endpoint begins the standard OpenID Connect authentication process:\n\n1. The client calls this endpoint with a callback path.\n2. The server responds with a redirect to the identity provider.\n3. The user authenticates with the identity provider.\n4. The identity provider redirects back to the callback endpoint.\n5. The client can exchange the authorization code for an access token."
+        },
+        {
+          "info": {
+            "name": "callback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{sql_node}/v1/callback",
+            "params": [
+              {
+                "name": "code",
+                "value": "",
+                "type": "query",
+                "description": "The authorization code from the OpenID provider. This endpoint exchanges the code for a token.\n\nExample: code=4/P7q7W91a-oMsCeLvIaQm6bTrgtp7"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Prevents cross-site request forgery attacks. This value should match the state in the initial authentication request.\n\nExample: state=fRJfv29f3v39Jf39dJf93jf"
+              }
+            ]
+          },
+          "docs": "Provides the authentication token for the OpenID Connect authentication process. The authorization server redirects to callback path after successful authentication.\n\nThis endpoint receives the authorization code from the OpenID provider and exchanges it for a token. The provider redirects the user to the application callback URL specified in the initial authentication request.\n\nThe client application should not call this endpoint directly. The OpenID provider automatically calls this endpoint i"
+        },
+        {
+          "info": {
+            "name": "sso_token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{sql_node}/v1/sso_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchange an OpenID Connect identifier token or access token for an Ocient access token.\n\nThis endpoint allows clients to directly exchange tokens without following the full browser-based authentication process. This exchange is useful for server-to-server scenarios or when the client already has a valid OpenID token from another process."
+        },
+        {
+          "info": {
+            "name": "sso_device_grant",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{sql_node}/v1/sso_device_grant",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve an OpenID device grant code that the Ocient System can verify and use with the sso_device_grant_verify endpoint.\n\nThe device grant process is intended for devices with limited input capabilities or no web browser:\n\n1. Call this endpoint to retrieve a user code and verification URI.\n2. Display the user code and verification URI to the user.\n3. The user visits the verification URI on another device and enters the code.\n4. Call the sso_device_grant_verify endpoint to check if the user has "
+        },
+        {
+          "info": {
+            "name": "sso_device_grant_verify",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{sql_node}/v1/sso_device_grant_verify",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Verify a previous device grant request and return an authorization token.\n\nAfter initiating a device grant process with the sso_device_grant endpoint, use this endpoint to check if the user has completed the verification process. If the verification is successful, the endpoint returns an authorization token that you can use for subsequent API calls.\n\nYou can call this endpoint multiple times until one of these outcomes:\n\nThe user completes the verification (returns 200 OK with a token).\n\nThe tim"
+        },
+        {
+          "info": {
+            "name": "token_refresh",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{sql_node}/v1/token_refresh",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refreshes an existing access token, extending its validity period. Call this endpoint before the current token expires to maintain uninterrupted access.\n\nUse the expires_in value from the login or previous refresh response to determine when to refresh the token. A common practice is to refresh when the token has half of its time remaining.\n\nOn success, the endpoint returns the 200 response and a JSON object containing a new access token and metadata about the refreshed session. Replace the acces"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
