@@ -6,8 +6,14 @@
       "feed_url": "https://docs.ocient.com/connect-to-ocient",
       "title": "",
       "saved": 0,
-      "method": "none",
-      "error": "parse_failed"
+      "method": "none"
+    },
+    {
+      "source": "https://ocient.com/feed/",
+      "feed_url": "https://ocient.com/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
     },
     {
       "source": "https://ocient.com/blog/",
@@ -18,5 +24,5 @@
     }
   ],
   "post_count": 0,
-  "fetched": "2026-08-15T12:11:08Z"
+  "fetched": "2026-08-22T20:20:02Z"
 }
