@@ -186,3 +186,5 @@ common:
   url: a2a/ocient-a2a.yml
 - type: AgentSkill
   url: skills/_index.yml
+- type: Contact
+  url: mailto:info@ocient.com
