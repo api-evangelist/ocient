@@ -1,15 +1,13 @@
 aid: ocient
 name: Ocient
-description: 'Ocient is a Chicago-based data platform company founded in 2016 that builds
-  OcientAIQ, a unified data platform for petabyte-scale analytics and production AI.
-  Its Compute-Adjacent Storage Architecture (CASA) colocates NVMe storage with compute
-  so that ingest, query optimization, machine learning, geospatial analysis, security
-  and governance run against very large datasets without moving the data. The platform
-  is reached with standard SQL over a JDBC driver, the pyocient Python DB-API 2.0 driver,
-  a SQLAlchemy dialect, an Apache Spark connector, and an HTTP Query API that executes
-  SQL statements over REST and returns JSON. Ocient serves communications service providers,
-  national security and intelligence, adtech, and financial services customers, and
-  offers OcientCloud, customer-deployed, and hybrid deployment models.'
+description: Ocient is a Chicago-based data platform company founded in 2016 that builds OcientAIQ, a
+  unified data platform for petabyte-scale analytics and production AI. Its Compute-Adjacent Storage Architecture
+  (CASA) colocates NVMe storage with compute so that ingest, query optimization, machine learning, geospatial
+  analysis, security and governance run against very large datasets without moving the data. The platform
+  is reached with standard SQL over a JDBC driver, the pyocient Python DB-API 2.0 driver, a SQLAlchemy
+  dialect, an Apache Spark connector, and an HTTP Query API that executes SQL statements over REST and
+  returns JSON. Ocient serves communications service providers, national security and intelligence, adtech,
+  and financial services customers, and offers OcientCloud, customer-deployed, and hybrid deployment models.
 url: https://raw.githubusercontent.com/api-evangelist/ocient/refs/heads/main/apis.yml
 deliveryModel:
   model: saas
@@ -41,7 +39,7 @@ x-type: company
 x-source: harvest:secondary-market
 specificationVersion: '0.23'
 created: '2026-08-02'
-modified: '2026-08-02'
+modified: '2026-09-16'
 x-enrichment:
   date: '2026-08-02'
   status: enriched
@@ -71,7 +69,7 @@ tags_raw:
 - Geospatial
 apis:
 - aid: ocient:ocient-ocient-http-query-api-api
-  name: Ocient Ocient HTTP Query API API
+  name: Ocient HTTP Query API
   description: The Ocient HTTP Query API API from Ocient — 10 operation(s) for ocient http query api.
   humanURL: https://docs.ocient.com/ocient-http-query-api
   baseURL: https://docs.ocient.com/api-playgrounds/ocient-http-query-api
@@ -90,9 +88,8 @@ apis:
     url: https://docs.ocient.com/api-playgrounds/system-information-rest-endpoints/get-version
 - aid: ocient:ocient-system-information-rest-endpoints-api
   name: Ocient System Information REST Endpoints API
-  description: >-
-    The System Information REST Endpoints API from Ocient — 6 operation(s) for system information rest
-    endpoints.
+  description: The System Information REST Endpoints API from Ocient — 6 operation(s) for system information
+    rest endpoints.
   humanURL: https://docs.ocient.com/ocient-http-query-api
   baseURL: https://docs.ocient.com/api-playgrounds/ocient-http-query-api
   tags:
