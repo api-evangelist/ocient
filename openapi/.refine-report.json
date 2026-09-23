@@ -1,8 +1,7 @@
 {
   "provider": "ocient",
   "sources": [
-    "ocient-ocient-http-query-api-api-openapi.yml",
-    "ocient-system-information-rest-endpoints-api-openapi.yml"
+    "_original/ocient-http-query-api-openapi-original.json"
   ],
   "outputs": [
     "ocient-ocient-http-query-api-api-openapi.yml",
@@ -12,9 +11,14 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "ocient-ocient-http-query-api-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "ocient-system-information-rest-endpoints-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "ocient-http-query-api-openapi-original.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "ocient-http-query-api-openapi-original.json: declared missing tag: Ocient HTTP Query API",
+    "ocient-http-query-api-openapi-original.json: declared missing tag: System Information REST Endpoints",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "ocient-ocient-http-query-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "ocient-system-information-rest-endpoints-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

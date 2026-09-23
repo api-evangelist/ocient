@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Generated API methods Ocient HTTP Query API API
+  title: Generated API methods Ocient HTTP Query API
   version: 1.0.0
   description: Generated from imported ApiMethodV2 blocks.
 servers:
@@ -15,7 +15,16 @@ paths:
   /v1/execute/{database}:
     post:
       summary: execute
-      description: "Executes a SQL statement and returns the results. Supports requests for both regular and streaming responses. \n\nWith streaming, results return as they become available using the HTTP chunked transfer encoding. Each chunk contains a valid JSON object that you can parse independently.\n\nFor details on streaming, including large-response configuration, see the header parameters. \n\nYou can specify the database in the request body. If you do not specify the database, the Ocient System defaults to the database specified in the authentication token or system settings. If you specify a database in the request, this value overrides any alternate database value specified as a body parameter."
+      description: 'Executes a SQL statement and returns the results. Supports requests for both regular and streaming responses.
+
+
+        With streaming, results return as they become available using the HTTP chunked transfer encoding. Each chunk contains a valid JSON object that you can parse independently.
+
+
+        For details on streaming, including large-response configuration, see the header parameters.
+
+
+        You can specify the database in the request body. If you do not specify the database, the Ocient System defaults to the database specified in the authentication token or system settings. If you specify a database in the request, this value overrides any alternate database value specified as a body parameter.'
       operationId: postOcientHttpQueryApiExecute
       tags:
       - Ocient HTTP Query API
@@ -334,7 +343,12 @@ paths:
   /v1/login:
     post:
       summary: login
-      description: "Authenticates a user with a username and password and then returns a token for use in subsequent API calls. This request also sets a session cookie. \n\nInclude the returned access token in the authorization header for subsequent requests in the format: \nAuthorization: Bearer {token}."
+      description: 'Authenticates a user with a username and password and then returns a token for use in subsequent API calls. This request also sets a session cookie.
+
+
+        Include the returned access token in the authorization header for subsequent requests in the format:
+
+        Authorization: Bearer {token}.'
       operationId: postOcientHttpQueryApiLogin
       tags:
       - Ocient HTTP Query API
@@ -406,7 +420,13 @@ paths:
   /v1/logout:
     post:
       summary: logout
-      description: "Log out from a SQL session. This clears any associated cookies, but does not invalidate any access tokens.\n\nThis endpoint terminates only the cookie-based session. Any bearer tokens that were previously issued continue to work until they expire.\n         \nYou must discard any stored bearer tokens to complete the log out in a client application."
+      description: 'Log out from a SQL session. This clears any associated cookies, but does not invalidate any access tokens.
+
+
+        This endpoint terminates only the cookie-based session. Any bearer tokens that were previously issued continue to work until they expire.
+
+
+        You must discard any stored bearer tokens to complete the log out in a client application.'
       operationId: postOcientHttpQueryApiLogout
       tags:
       - Ocient HTTP Query API
@@ -744,7 +764,22 @@ paths:
   /v1/sso_device_grant_verify:
     post:
       summary: sso_device_grant_verify
-      description: "Verify a previous device grant request and return an authorization token.\n\nAfter initiating a device grant process with the sso_device_grant endpoint, use this endpoint to check if the user has completed the verification process. If the verification is successful, the endpoint returns an authorization token that you can use for subsequent API calls.\n\nYou can call this endpoint multiple times until one of these outcomes:\n\nThe user completes the verification (returns 200 OK with a token).\n\nThe timeout is reached (returns error).\n \nThe verification is canceled (returns error)."
+      description: 'Verify a previous device grant request and return an authorization token.
+
+
+        After initiating a device grant process with the sso_device_grant endpoint, use this endpoint to check if the user has completed the verification process. If the verification is successful, the endpoint returns an authorization token that you can use for subsequent API calls.
+
+
+        You can call this endpoint multiple times until one of these outcomes:
+
+
+        The user completes the verification (returns 200 OK with a token).
+
+
+        The timeout is reached (returns error).
+
+
+        The verification is canceled (returns error).'
       operationId: postOcientHttpQueryApiSsoDeviceGrantVerify
       tags:
       - Ocient HTTP Query API
