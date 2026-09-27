@@ -53,9 +53,10 @@ tags:
 - Database
 - SQL
 - Artificial Intelligence
-- Machine-Learning
+- Machine Learning
 - Big Data
 - Geospatial
+- A2A
 tags_raw:
 - Company
 - Data
@@ -67,6 +68,8 @@ tags_raw:
 - Machine Learning
 - Big Data
 - Geospatial
+- Machine-Learning
+- A2A
 apis:
 - aid: ocient:ocient-ocient-http-query-api-api
   name: Ocient HTTP Query API
@@ -185,3 +188,10 @@ common:
   url: skills/_index.yml
 - type: Contact
   url: mailto:info@ocient.com
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://docs.ocient.com/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3"
+  control: 404
