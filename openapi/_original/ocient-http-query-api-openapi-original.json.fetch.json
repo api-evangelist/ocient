@@ -1,0 +1,12 @@
+{
+ "url": "https://docs.ocient.com/openapi/generated-api-methods.json",
+ "requested_url": "https://docs.ocient.com/openapi/generated-api-methods.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 79272,
+ "sha256": "dc3849ca2b0b87443caf2c906daf319faad32b1f6b7faf91d96778863cf12d45",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
