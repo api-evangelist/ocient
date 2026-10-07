@@ -1,0 +1,36 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://ocient.com/pricing/
+sources:
+- https://ocient.com/pricing/
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: negotiated
+delivery:
+  delivery: managed+licensed
+  method: page
+  read: '2026-10-07'
+  evidence: Perpetual license For on-premises deployments only
+published: false
+note: No numeric prices; only savings claims (60-80% reduction, up to 90% less energy). Licensing described
+  as CPU-count based but no rates published. Calls to action are 'Contact us for a quote'.
+plan_count: 3
+plans:
+- name: Subscription or term-based license
+  price_text: Contact us for a quote
+  period: none
+  included_quota: For cloud, on-premises, and hybrid deployments; annual or multi-year terms, with lower
+    fees for longer commitments
+- name: Perpetual license
+  price_text: Contact us for a quote
+  period: none
+  included_quota: For on-premises deployments only; updates, upgrades, and support on annual or multi-year
+    terms
+- name: Bundled AI solutions
+  price_text: Contact us for a quote
+  period: none
+  included_quota: Software, support, and managed services
