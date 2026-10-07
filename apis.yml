@@ -114,6 +114,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Plans
+  url: plans/ocient-plans-pricing.yml
 - type: TrustCenter
   url: security/ocient-trust-center.yml
 - type: DomainSecurity
