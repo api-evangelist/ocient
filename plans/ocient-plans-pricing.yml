@@ -34,3 +34,30 @@ plans:
   price_text: Contact us for a quote
   period: none
   included_quota: Software, support, and managed services
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models: []
+  units: []
+  plans:
+  - name: Subscription or term-based license
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Perpetual license
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: Bundled AI solutions
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
