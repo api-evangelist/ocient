@@ -496,3 +496,9 @@ paths:
         source: 'curl --location --request GET ''http://oc1-lts0:9090/v1/config'' \
 
           --header ''Accept: application/json'''
+x-provenance:
+  method: harvested
+  publisher: Ocient
+  source: https://docs.ocient.com/openapi/generated-api-methods.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
