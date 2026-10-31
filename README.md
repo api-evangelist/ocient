@@ -64,5 +64,123 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Ocient is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/ocient_stock/
+Ocient is a Chicago-based data platform company founded in 2016 that builds OcientAIQ, a unified data platform for petabyte-scale analytics and production AI. Its Compute-Adjacent Storage Architecture (CASA) colocates NVMe storage with compute so that ingest, query optimization, machine learning, geospatial analysis, security and governance run against very large datasets without moving the data. The platform is reached with standard SQL over a JDBC driver, the pyocient Python DB-API 2.0 driver, a SQLAlchemy dialect, an Apache Spark connector, and an HTTP Query API that executes SQL statements over REST and returns JSON. Ocient serves communications service providers, national security and intelligence, adtech, and financial services customers, and offers OcientCloud, customer-deployed, and hybrid deployment models.
+
+**Areas:** Company · Data · Analytics · Data Warehouse · Database · SQL · Artificial Intelligence · Machine Learning · Big Data · Geospatial · A2A
+
+## Ocient on APIs.io
+
+Everything profiled for Ocient is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ocient/](https://apis.io/providers/ocient/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Ocient HTTP Query API](https://apis.io/apis/ocient/ocient-ocient-http-query-api-api/) — The Ocient HTTP Query API API from Ocient — 10 operation(s) for ocient http query api.
+- [Ocient System Information REST Endpoints API](https://apis.io/apis/ocient/ocient-system-information-rest-endpoints-api/) — The System Information REST Endpoints API from Ocient — 6 operation(s) for system information rest endpoints.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Ocient Documentation](https://apis.io/servers/ocient/ocient-documentation/)
+
+#### Collections (2)
+
+Postman and Open Collection request collections.
+
+- [Generated API methods Ocient HTTP Query API API](https://apis.io/collections/ocient/open-ocient-ocient-http-query-api-api/)
+- [Generated API methods System Information REST Endpoints API](https://apis.io/collections/ocient/open-ocient-system-information-rest-endpoints-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Ocient Http Query Api Overlay](https://apis.io/overlays/ocient/ocient-http-query-api-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Ocient Authentication](https://apis.io/security/ocient/ocient-authentication/)
+- [Ocient Domain Security](https://apis.io/security/ocient/ocient-domain-security/)
+- [Ocient Trust Center](https://apis.io/security/ocient/ocient-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Ocient Plans Pricing](https://apis.io/plans/ocient/ocient-plans-pricing/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://ocient.com/)
+- [Documentation](https://docs.ocient.com/)
+- [Getting started](https://docs.ocient.com/connect-to-ocient)
+- [API reference](https://docs.ocient.com/ocient-http-query-api)
+- [Pricing](https://ocient.com/pricing/)
+- [Support](https://ocient.com/contact-us/)
+- [Blog](https://ocient.com/blog/)
+- [Compliance](https://ocient.com/security-and-compliance/)
+- [Terms of service](https://ocient.com/terms-of-use/)
+- [Privacy policy](https://ocient.com/privacy-statement/)
+- [GitHub](https://github.com/ocient)
+
+## API Evangelist rating
+
+**Kin Score 55.1** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 41.6 |
+| Contract governance | 18.2 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 78.6 |
+| Access clarity | 78.9 |
+
+**Agent readiness 33.0** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | conformant |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 27.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ocient/](https://apis.io/providers/ocient/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Ocient: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ocient/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
